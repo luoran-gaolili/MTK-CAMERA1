@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/luoran/code/FreemeCamera-N-Project/Camera/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-port/values-port.xml",
+            "map": [
+                {
+                    "source": "/home/luoran/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.0.1.aar/69545ab90c76e935afbbbab44311d705/res/values-port/values-port.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "55",
+                        "endOffsets": "106"
+                    }
+                }
+            ]
+        }
+    ]
+}

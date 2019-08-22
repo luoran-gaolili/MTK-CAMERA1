@@ -1,0 +1,7 @@
+#Internal package file, do not edit.
+#Thu Aug 22 19:04:58 CST 2019
+0.baseType=DIRECTORY
+0.base=/home/luoran/code/FreemeCamera-N-Project/Camera/app/build/intermediates/transforms/dexMerger/debug/0
+0.path=classes.dex
+0.set=DEX
+count=1

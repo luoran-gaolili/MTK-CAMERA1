@@ -1,0 +1,361 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:2:1-150:12
+INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:2:1-150:12
+INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:2:1-150:12
+INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:2:1-150:12
+MERGED from [com.android.support:appcompat-v7:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.0.1.aar/69545ab90c76e935afbbbab44311d705/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-v4:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-v4-27.0.1.aar/7c483469c9363b40f220241c1729b41d/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.0.1.aar/2b8a8c621d1c18685f843549f25aa303/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-fragment-27.0.1.aar/750bf3b0043ba9e5c0351f3481e959ce/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.0.1.aar/ce135cc5f925897fabaf07a59d759251/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-27.0.1.aar/3703accdf91e2e02240aa28ca997af13/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.0.1.aar/5d5026394db7dda974d90b72d40597bc/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.0.1.aar/ddbe6e335d35134764e53fdd4017cf32/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.1.aar/2b45056dc9561d490e72f86dc52318d2/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.0.0] /home/luoran/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/99a688c23a74b10ef8c44a325864f01c/AndroidManifest.xml:17:1-30:12
+INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:2:1-150:12
+INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:2:1-150:12
+INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:2:1-150:12
+	package
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:3:5-34
+		INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml
+		INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml
+	android:versionName
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:5:5-36
+		INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml
+		INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:2:11-69
+	android:versionCode
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:4:5-32
+		INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml
+		INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml
+uses-sdk
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:7:5-9:41
+INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:7:5-9:41
+INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:appcompat-v7:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.0.1.aar/69545ab90c76e935afbbbab44311d705/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.0.1.aar/69545ab90c76e935afbbbab44311d705/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-v4-27.0.1.aar/7c483469c9363b40f220241c1729b41d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-v4-27.0.1.aar/7c483469c9363b40f220241c1729b41d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.0.1.aar/2b8a8c621d1c18685f843549f25aa303/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.0.1.aar/2b8a8c621d1c18685f843549f25aa303/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-fragment-27.0.1.aar/750bf3b0043ba9e5c0351f3481e959ce/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-fragment-27.0.1.aar/750bf3b0043ba9e5c0351f3481e959ce/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.0.1.aar/ce135cc5f925897fabaf07a59d759251/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.0.1.aar/ce135cc5f925897fabaf07a59d759251/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-27.0.1.aar/3703accdf91e2e02240aa28ca997af13/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-27.0.1.aar/3703accdf91e2e02240aa28ca997af13/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.0.1.aar/5d5026394db7dda974d90b72d40597bc/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.0.1.aar/5d5026394db7dda974d90b72d40597bc/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.0.1.aar/ddbe6e335d35134764e53fdd4017cf32/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.0.1.aar/ddbe6e335d35134764e53fdd4017cf32/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.1.aar/2b45056dc9561d490e72f86dc52318d2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.0.1] /home/luoran/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.1.aar/2b45056dc9561d490e72f86dc52318d2/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.0.0] /home/luoran/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/99a688c23a74b10ef8c44a325864f01c/AndroidManifest.xml:20:5-22:41
+MERGED from [android.arch.lifecycle:runtime:1.0.0] /home/luoran/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/99a688c23a74b10ef8c44a325864f01c/AndroidManifest.xml:20:5-22:41
+INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:7:5-9:41
+INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:7:5-9:41
+	android:targetSdkVersion
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:9:9-38
+		INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml
+		INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:8:9-35
+		INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml
+		INJECTED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml
+uses-permission#mediatek.permission.ACCESS_MTK_MMHW
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:10:5-75
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:10:22-72
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:11:5-81
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:11:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:12:5-79
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:12:22-76
+uses-permission#android.permission.BIND_WALLPAPER
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:13:5-73
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:13:22-70
+uses-permission#android.permission.CAMERA
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:14:5-65
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:14:22-62
+uses-permission#android.permission.NFC
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:15:5-62
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:15:22-59
+uses-permission#android.permission.READ_SYNC_SETTINGS
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:16:5-77
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:16:22-74
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:17:5-81
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:17:22-78
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:18:5-71
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:18:22-68
+uses-permission#android.permission.SET_WALLPAPER
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:19:5-72
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:19:22-69
+uses-permission#android.permission.SUBSCRIBED_FEEDS_READ
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:20:5-80
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:20:22-77
+uses-permission#android.permission.SUBSCRIBED_FEEDS_WRITE
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:21:5-81
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:21:22-78
+uses-permission#android.permission.USE_CREDENTIALS
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:22:5-74
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:22:22-71
+uses-permission#android.permission.VIBRATE
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:23:5-66
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:23:22-63
+uses-permission#android.permission.WAKE_LOCK
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:24:5-68
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:24:22-65
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:25:5-81
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:25:22-78
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:26:5-79
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:26:22-77
+uses-permission#com.android.gallery3d.permission.GALLERY_PROVIDER
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:27:5-89
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:27:22-86
+uses-permission#android.permission.DEVICE_POWER
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:29:5-71
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:29:22-68
+uses-permission#android.permission.WRITE_MEDIA_STORAGE
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:31:5-78
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:31:22-75
+uses-permission#android.permission.WRITE_SETTINGS
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:32:5-73
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:32:22-70
+uses-permission#android.permission.WRITE_SYNC_SETTINGS
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:33:5-78
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:33:22-75
+uses-permission#android.permission.SET_PREFERRED_APPLICATIONS
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:35:5-85
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:35:22-82
+uses-permission#android.permission.WRITE_APN_SETTINGS
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:37:5-77
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:37:22-74
+uses-permission#android.permission.MANAGE_VOICE_KEYPHRASES
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:40:5-82
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:40:22-79
+supports-screens
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:42:5-46:40
+	android:largeScreens
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:44:9-36
+	android:smallScreens
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:46:9-37
+	android:normalScreens
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:45:9-37
+	android:anyDensity
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:43:9-34
+application
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:48:5-148:19
+MERGED from [android.arch.lifecycle:runtime:1.0.0] /home/luoran/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/99a688c23a74b10ef8c44a325864f01c/AndroidManifest.xml:24:5-28:19
+MERGED from [android.arch.lifecycle:runtime:1.0.0] /home/luoran/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/99a688c23a74b10ef8c44a325864f01c/AndroidManifest.xml:24:5-28:19
+	android:supportsRtl
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:54:9-35
+	android:label
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:51:9-45
+	android:hardwareAccelerated
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:49:9-43
+	android:restoreAnyVersion
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:53:9-41
+	android:largeHeap
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:52:9-33
+	android:icon
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:50:9-50
+	android:theme
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:55:9-43
+activity#com.android.camera.CameraActivity
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:56:9-76:20
+	android:screenOrientation
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:59:13-49
+	android:clearTaskOnLaunch
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:58:13-45
+	android:label
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:61:13-49
+	android:launchMode
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:62:13-44
+	android:windowSoftInputMode
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:64:13-70
+	android:configChanges
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:60:13-153
+	android:taskAffinity
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:63:13-69
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:57:13-61
+intent-filter#action:name:android.media.action.STILL_IMAGE_CAMERA+category:name:android.intent.category.DEFAULT
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:65:13-68:29
+action#android.media.action.STILL_IMAGE_CAMERA
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:66:17-82
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:66:25-79
+category#android.intent.category.DEFAULT
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:67:17-76
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:67:27-73
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.DEFAULT
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:69:13-72:29
+action#android.intent.action.MAIN
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:70:17-69
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:70:25-66
+meta-data#com.android.keyguard.layout
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:73:13-75:62
+	android:resource
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:75:17-59
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:74:17-59
+activity-alias#com.android.camera.CameraLauncher
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:77:9-86:26
+	android:label
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:78:25-61
+	android:targetActivity
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:80:25-83
+	android:icon
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:77:25-66
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:79:25-73
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.DEFAULT+category:name:android.intent.category.LAUNCHER
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:81:13-85:29
+category#android.intent.category.LAUNCHER
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:84:17-77
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:84:27-74
+activity#com.android.camera.SecureCameraActivity
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:87:9-108:20
+	android:screenOrientation
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:90:13-49
+	android:clearTaskOnLaunch
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:89:13-45
+	android:label
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:94:13-49
+	android:excludeFromRecents
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:92:13-46
+	android:windowSoftInputMode
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:96:13-70
+	android:configChanges
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:91:13-74
+	android:icon
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:93:13-54
+	android:taskAffinity
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:95:13-75
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:88:13-67
+intent-filter#action:name:android.media.action.STILL_IMAGE_CAMERA_SECURE+category:name:android.intent.category.DEFAULT
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:97:13-100:29
+action#android.media.action.STILL_IMAGE_CAMERA_SECURE
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:98:17-89
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:98:25-86
+intent-filter#action:name:android.media.action.IMAGE_CAPTURE_SECURE+category:name:android.intent.category.DEFAULT
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:101:13-104:29
+action#android.media.action.IMAGE_CAPTURE_SECURE
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:102:17-84
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:102:25-81
+activity#com.android.camera.CaptureActivity
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:109:9-120:20
+	android:screenOrientation
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:111:13-49
+	android:label
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:113:13-49
+	android:windowSoftInputMode
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:114:13-70
+	android:visibleToInstantApps
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:115:13-48
+	android:configChanges
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:112:13-153
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:110:13-62
+intent-filter#action:name:android.media.action.IMAGE_CAPTURE+category:name:android.intent.category.DEFAULT
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:116:13-119:29
+action#android.media.action.IMAGE_CAPTURE
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:117:17-77
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:117:25-74
+activity-alias#com.android.camera.VideoCamera
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:121:9-135:26
+	android:screenOrientation
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:124:13-49
+	android:label
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:123:13-55
+	android:targetActivity
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:125:13-72
+	android:visibleToInstantApps
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:126:13-48
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:122:13-58
+intent-filter#action:name:android.media.action.VIDEO_CAMERA+category:name:android.intent.category.DEFAULT
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:127:13-130:29
+action#android.media.action.VIDEO_CAMERA
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:128:17-76
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:128:25-73
+intent-filter#action:name:android.media.action.VIDEO_CAPTURE+category:name:android.intent.category.DEFAULT
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:131:13-134:29
+action#android.media.action.VIDEO_CAPTURE
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:132:17-77
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:132:25-74
+receiver#com.android.camera.DisableCameraReceiver
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:136:9-140:20
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:136:19-74
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:137:13-139:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:138:17-79
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:138:25-76
+service#com.android.camera.MediaSaveService
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:141:9-71
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:141:18-68
+service#com.android.camera.FileSaverService
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:142:9-71
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:142:18-68
+service#com.mediatek.camera.addition.remotecamera.service.MtkCameraService
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:143:9-147:19
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:143:18-99
+intent-filter#action:name:com.mediatek.camera.service.IMtkCameraService
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:144:13-146:29
+action#com.mediatek.camera.service.IMtkCameraService
+ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:145:17-88
+	android:name
+		ADDED from /home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/AndroidManifest.xml:145:25-85
+meta-data#android.arch.lifecycle.VERSION
+ADDED from [android.arch.lifecycle:runtime:1.0.0] /home/luoran/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/99a688c23a74b10ef8c44a325864f01c/AndroidManifest.xml:25:9-27:47
+	android:value
+		ADDED from [android.arch.lifecycle:runtime:1.0.0] /home/luoran/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/99a688c23a74b10ef8c44a325864f01c/AndroidManifest.xml:27:13-44
+	android:name
+		ADDED from [android.arch.lifecycle:runtime:1.0.0] /home/luoran/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/99a688c23a74b10ef8c44a325864f01c/AndroidManifest.xml:26:13-58
