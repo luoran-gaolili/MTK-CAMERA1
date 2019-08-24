@@ -36,6 +36,8 @@
  */
 package com.android.camera;
 
+import android.util.Log;
+
 import com.android.camera.bridge.ParametersExt;
 import com.android.camera.manager.ModePicker;
 import com.mediatek.camera.platform.Parameters;
@@ -59,36 +61,45 @@ public class ModeChecker {
         MODE_STRING_NORMAL[ModePicker.MODE_FACE_BEAUTY] = Parameters.CAPTURE_MODE_FB;
         // Parameters.CAPTURE_MODE_PANORAMA_SHOT;
         MODE_STRING_NORMAL[ModePicker.MODE_PANORAMA] = "autorama";
+
+        MODE_STRING_NORMAL[ModePicker.MODE_SLR_CAMERA] = "slrcamera";
         MODE_STRING_NORMAL[ModePicker.MODE_ASD] = Parameters.CAPTURE_MODE_ASD;
 
         // back front
-        MATRIX_NORMAL_ENABLE[ModePicker.MODE_PHOTO] = new boolean[] { true, true };
-        MATRIX_NORMAL_ENABLE[ModePicker.MODE_HDR] = new boolean[] { true, false };
-        MATRIX_NORMAL_ENABLE[ModePicker.MODE_FACE_BEAUTY] = new boolean[] { true, true };
-        MATRIX_NORMAL_ENABLE[ModePicker.MODE_PANORAMA] = new boolean[] { true, false };
-        MATRIX_NORMAL_ENABLE[ModePicker.MODE_ASD] = new boolean[] { true, false };
-        MATRIX_NORMAL_ENABLE[ModePicker.MODE_VIDEO] = new boolean[] { true, true };
-        MATRIX_NORMAL_ENABLE[ModePicker.MODE_PHOTO_PIP] = new boolean[] { true, true };
-        MATRIX_NORMAL_ENABLE[ModePicker.MODE_VIDEO_PIP] = new boolean[] { false, false };
-        MATRIX_NORMAL_ENABLE[ModePicker.MODE_STEREO_CAMERA]     = new boolean[]{true, false};
-        MATRIX_NORMAL_ENABLE[ModePicker.MODE_VIDEO_STEREO]     = new boolean[]{true, false};
-        MATRIX_NORMAL_ENABLE[ModePicker.MODE_PHOTO_STEREO]     = new boolean[]{true, false};
+        MATRIX_NORMAL_ENABLE[ModePicker.MODE_PHOTO] = new boolean[]{true, true};
+        MATRIX_NORMAL_ENABLE[ModePicker.MODE_SLR_CAMERA] = new boolean[]{false, false};
+        MATRIX_NORMAL_ENABLE[ModePicker.MODE_HDR] = new boolean[]{true, false};
+        MATRIX_NORMAL_ENABLE[ModePicker.MODE_FACE_BEAUTY] = new boolean[]{true, true};
+        MATRIX_NORMAL_ENABLE[ModePicker.MODE_PANORAMA] = new boolean[]{true, false};
+        MATRIX_NORMAL_ENABLE[ModePicker.MODE_ASD] = new boolean[]{true, false};
+        MATRIX_NORMAL_ENABLE[ModePicker.MODE_VIDEO] = new boolean[]{true, true};
+        MATRIX_NORMAL_ENABLE[ModePicker.MODE_PHOTO_PIP] = new boolean[]{true, true};
+        MATRIX_NORMAL_ENABLE[ModePicker.MODE_VIDEO_PIP] = new boolean[]{false, false};
+        MATRIX_NORMAL_ENABLE[ModePicker.MODE_STEREO_CAMERA] = new boolean[]{true, false};
+        MATRIX_NORMAL_ENABLE[ModePicker.MODE_VIDEO_STEREO] = new boolean[]{true, false};
+        MATRIX_NORMAL_ENABLE[ModePicker.MODE_PHOTO_STEREO] = new boolean[]{true, false};
 
-        MATRIX_PREVIEW3D_ENABLE[ModePicker.MODE_PHOTO] = new boolean[] { true, false };
-        MATRIX_PREVIEW3D_ENABLE[ModePicker.MODE_HDR] = new boolean[] { false, false };
-        MATRIX_PREVIEW3D_ENABLE[ModePicker.MODE_FACE_BEAUTY] = new boolean[] { false, false };
-        MATRIX_PREVIEW3D_ENABLE[ModePicker.MODE_PANORAMA] = new boolean[] { false, false };
-        MATRIX_PREVIEW3D_ENABLE[ModePicker.MODE_ASD] = new boolean[] { false, false };
-        MATRIX_PREVIEW3D_ENABLE[ModePicker.MODE_VIDEO] = new boolean[] { true, false };
-        MATRIX_PREVIEW3D_ENABLE[ModePicker.MODE_PHOTO_PIP] = new boolean[] { false, false };
 
-        MATRIX_SINGLE3D_ENABLE[ModePicker.MODE_PHOTO] = new boolean[] { true, false };
-        MATRIX_SINGLE3D_ENABLE[ModePicker.MODE_HDR] = new boolean[] { false, false };
-        MATRIX_SINGLE3D_ENABLE[ModePicker.MODE_FACE_BEAUTY] = new boolean[] { false, false };
-        MATRIX_SINGLE3D_ENABLE[ModePicker.MODE_PANORAMA] = new boolean[] { true, false };
-        MATRIX_SINGLE3D_ENABLE[ModePicker.MODE_ASD] = new boolean[] { false, false };
-        MATRIX_SINGLE3D_ENABLE[ModePicker.MODE_VIDEO] = new boolean[] { false, false };
-        MATRIX_SINGLE3D_ENABLE[ModePicker.MODE_PHOTO_PIP] = new boolean[] { false, false };
+
+        MATRIX_PREVIEW3D_ENABLE[ModePicker.MODE_PHOTO] = new boolean[]{true, false};
+        MATRIX_PREVIEW3D_ENABLE[ModePicker.MODE_SLR_CAMERA] = new boolean[]{true, false};
+        MATRIX_PREVIEW3D_ENABLE[ModePicker.MODE_HDR] = new boolean[]{false, false};
+        MATRIX_PREVIEW3D_ENABLE[ModePicker.MODE_FACE_BEAUTY] = new boolean[]{false, false};
+        MATRIX_PREVIEW3D_ENABLE[ModePicker.MODE_PANORAMA] = new boolean[]{false, false};
+        MATRIX_PREVIEW3D_ENABLE[ModePicker.MODE_ASD] = new boolean[]{false, false};
+        MATRIX_PREVIEW3D_ENABLE[ModePicker.MODE_VIDEO] = new boolean[]{true, false};
+        MATRIX_PREVIEW3D_ENABLE[ModePicker.MODE_PHOTO_PIP] = new boolean[]{false, false};
+
+
+        MATRIX_SINGLE3D_ENABLE[ModePicker.MODE_PHOTO] = new boolean[]{true, false};
+        MATRIX_SINGLE3D_ENABLE[ModePicker.MODE_SLR_CAMERA] = new boolean[]{true, false};
+        MATRIX_SINGLE3D_ENABLE[ModePicker.MODE_HDR] = new boolean[]{false, false};
+        MATRIX_SINGLE3D_ENABLE[ModePicker.MODE_FACE_BEAUTY] = new boolean[]{false, false};
+        MATRIX_SINGLE3D_ENABLE[ModePicker.MODE_PANORAMA] = new boolean[]{true, false};
+        MATRIX_SINGLE3D_ENABLE[ModePicker.MODE_ASD] = new boolean[]{false, false};
+        MATRIX_SINGLE3D_ENABLE[ModePicker.MODE_VIDEO] = new boolean[]{false, false};
+        MATRIX_SINGLE3D_ENABLE[ModePicker.MODE_PHOTO_PIP] = new boolean[]{false, false};
+
     }
 
     public static void updateModeMatrix(CameraActivity camera, int cameraId) {
@@ -108,6 +119,9 @@ public class ModeChecker {
         }
         // video modes can not judge form feature table
         for (int i = 0; i < ModePicker.MODE_VIDEO; i++) {
+            if(i == ModePicker.MODE_SLR_CAMERA){
+                break;
+            }
             if (MATRIX_NORMAL_ENABLE[i][cameraId] && supported.indexOf(MODE_STRING_NORMAL[i]) < 0) {
 
                 if (i != ModePicker.MODE_HDR) {
@@ -209,7 +223,8 @@ public class ModeChecker {
 
     /**
      * Return the number of modes supported by special camera.
-     * @param camera The camera activity instance.
+     *
+     * @param camera   The camera activity instance.
      * @param cameraId The id of camera.
      * @return Return the number of modes supported.
      */
@@ -227,6 +242,7 @@ public class ModeChecker {
         for (int i = 0; i < ModePicker.MODE_VIDEO; i++) {
             // asd, hdr, video is not show in ModePicker, so filter
             // them
+            Log.d("LUORAN", "(matrix[i][cameraId]:" + matrix[ModePicker.MODE_SLR_CAMERA][0]);
             if (matrix[i][cameraId]
                     && i != ModePicker.MODE_ASD
                     && i != ModePicker.MODE_HDR) {

@@ -37,6 +37,7 @@
 package com.android.camera.bridge;
 
 import android.graphics.ImageFormat;
+import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
@@ -77,6 +78,7 @@ import com.android.camera.ui.RotateLayout;
 
 import com.mediatek.camera.ISettingCtrl;
 import com.mediatek.camera.ModuleManager;
+import com.mediatek.camera.debug.LogHelper;
 import com.mediatek.camera.util.CameraPerformanceTracker;
 import com.mediatek.camera.platform.ICameraAppUi.ViewState;
 import com.mediatek.camera.platform.IFocusManager;
@@ -1024,6 +1026,8 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
         mSurfaceView =
                 (PreviewSurfaceView) mCurSurfaceViewLayout.findViewById(
                         R.id.camera_preview);
+
+        mSurfaceView.addOnLayoutChangeListener(mOnLayoutChangeCallback);
         mSurfaceView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -1035,6 +1039,30 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
         surfaceHolder.addCallback(this);
         surfaceViewRoot.addView(mCurSurfaceViewLayout);
     }
+
+    protected RectF mPreviewArea = new RectF();
+
+    private View.OnLayoutChangeListener mOnLayoutChangeCallback = new View.OnLayoutChangeListener() {
+        @Override
+        public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
+                                   int oldTop, int oldRight, int oldBottom) {
+            mPreviewArea.set(left, top, right, bottom);
+
+            android.util.Log.d("LUORAN","onLayoutChange");
+            // This method can be called during layout pass. We post a Runnable so
+            // that the callbacks won't happen during the layout pass.
+           /* mSurfaceView.post(new Runnable() {
+                @Override
+                public void run() {
+                    notifyPreviewAreaChanged();
+                }
+            });
+            if (mOnLayoutChangeListener != null) {
+                mOnLayoutChangeListener.onLayoutChange(v, left, top, right, bottom,
+                        oldLeft, oldTop, oldRight, oldBottom);
+            }*/
+        }
+    };
 
     public void unInitializeFocusManager() {
         if (mFocusManager != null) {
@@ -1202,6 +1230,7 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
 //        Log.d(TAG, "[getDelayTime]delaytime = " + delayTime);
         return delayTime;
     }
+
 
     private class CameraHandler extends Handler {
         CameraHandler(Looper looper) {

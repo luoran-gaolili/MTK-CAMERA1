@@ -21,6 +21,8 @@
     <string name="accessibility_switch_to_stereo_camera">Super de-noise mode</string>
     <string name="accessibility_switch_to_pip">PIP mode</string>
     <string name="accessibility_switch_to_panorama">Panorama mode</string>
+    <string name="accessibility_switch_to_slr">Slr mode</string>
+
     <!-- AF -->
     <string name="pref_af_mode_title">AF mode</string>
     <string name="pref_af_mode_single">Single point AF</string>

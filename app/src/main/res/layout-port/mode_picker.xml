@@ -3,6 +3,7 @@
     style="@style/ModePickerLayout" >
     <ImageView
         android:id="@+id/mode_picker_background"
+
         style="@style/ModePickerBackground"/>
     <com.android.camera.ui.ModePickerRotateLayout
         android:layout_width="match_parent"
@@ -17,6 +18,12 @@
                     android:id="@+id/mode_photo"
                     android:contentDescription="@string/accessibility_switch_to_camera"
                     style="@style/ModePickerIcon" />
+
+                <com.android.camera.ui.RotateImageView
+                    android:id="@+id/mode_slr"
+                    android:contentDescription="@string/accessibility_switch_to_slr"
+                    style="@style/ModePickerIcon" />
+
                 <com.android.camera.ui.RotateImageView
                     android:id="@+id/mode_stereo_camera"
                     android:contentDescription="@string/accessibility_switch_to_dual_camera"
@@ -33,10 +40,12 @@
                     android:id="@+id/mode_face_beauty"
                     android:contentDescription="@string/accessibility_switch_to_face_beauty"
                     style="@style/ModePickerIcon" />
+
                 <com.android.camera.ui.RotateImageView
                     android:id="@+id/mode_panorama"
                     android:contentDescription="@string/accessibility_switch_to_panorama"
                     style="@style/ModePickerIcon" />
+
             </LinearLayout>
         </com.android.camera.ui.ModePickerScrollView>
     </com.android.camera.ui.ModePickerRotateLayout>

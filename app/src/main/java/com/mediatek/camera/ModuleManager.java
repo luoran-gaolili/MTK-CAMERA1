@@ -424,6 +424,9 @@ public class ModuleManager {
         case EXT_MODE_PHOTO:
             key = SettingConstants.KEY_NORMAL;
             break;
+            case EXT_MODE_SLR:
+                key = SettingConstants.KEY_SLR;
+                break;
         case EXT_MODE_PANORAMA:
             key = SettingConstants.KEY_PANORAMA;
             break;

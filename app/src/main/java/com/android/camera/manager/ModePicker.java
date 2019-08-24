@@ -66,20 +66,25 @@ public class ModePicker extends ViewManager implements View.OnClickListener,
     // Before MODE_VIDEO is "capture mode" for UI,switch "capture mode"
     // remaining view should not show
     public static final int MODE_PHOTO = 0;
+    public static final int MODE_SLR_CAMERA = 2;
     public static final int MODE_HDR = 1;
-    public static final int MODE_FACE_BEAUTY = 2;
-    public static final int MODE_PANORAMA = 3;
-    public static final int MODE_ASD = 4;
-    public static final int MODE_PHOTO_PIP = 5;
-    public static final int MODE_STEREO_CAMERA = 6;
+    public static final int MODE_FACE_BEAUTY = 3;
+    public static final int MODE_PANORAMA = 4;
+
+
+    public static final int MODE_ASD = 5;
+    public static final int MODE_PHOTO_PIP = 6;
+    public static final int MODE_STEREO_CAMERA = 7;
+
     // TODO there is for stereo photo feature
     // Now only denoise, would include 6 later.
-    public static final int MODE_PHOTO_STEREO = 7;
-    public static final int MODE_VIDEO = 8;
-    public static final int MODE_VIDEO_PIP = 9;
-    public static final int MODE_VIDEO_STEREO = 10;
+    public static final int MODE_PHOTO_STEREO = 8;
+    public static final int MODE_VIDEO = 9;
+    public static final int MODE_VIDEO_PIP = 10;
+    public static final int MODE_VIDEO_STEREO = 11;
 
-    public static final int MODE_NUM_ALL = 11;
+
+    public static final int MODE_NUM_ALL = 12;
     public static final int OFFSET = 100;
     private static final int OFFSET_STEREO_PREVIEW = OFFSET;
     private static final int OFFSET_STEREO_SINGLE = OFFSET * 2;
@@ -99,24 +104,29 @@ public class ModePicker extends ViewManager implements View.OnClickListener,
 
     private static final int[] MODE_ICONS_HIGHTLIGHT = new int[MODE_NUM_ALL];
     private static final int[] MODE_ICON_ORDER = {
-        MODE_PHOTO, MODE_STEREO_CAMERA, MODE_PHOTO_STEREO, MODE_PHOTO_PIP,
+        MODE_PHOTO, MODE_SLR_CAMERA ,MODE_STEREO_CAMERA, MODE_PHOTO_STEREO, MODE_PHOTO_PIP,
         MODE_FACE_BEAUTY, MODE_PANORAMA};
     static {
         MODE_ICONS_HIGHTLIGHT[MODE_PHOTO] = R.drawable.ic_mode_photo_focus;
+        MODE_ICONS_HIGHTLIGHT[MODE_SLR_CAMERA] = R.drawable.ic_mode_pip_focus;
         MODE_ICONS_HIGHTLIGHT[MODE_FACE_BEAUTY] = R.drawable.ic_mode_facebeauty_focus;
         MODE_ICONS_HIGHTLIGHT[MODE_PANORAMA] = R.drawable.ic_mode_panorama_focus;
         MODE_ICONS_HIGHTLIGHT[MODE_PHOTO_PIP] = R.drawable.ic_mode_pip_focus;
         MODE_ICONS_HIGHTLIGHT[MODE_STEREO_CAMERA] = R.drawable.ic_mode_refocus_focus;
         MODE_ICONS_HIGHTLIGHT[MODE_PHOTO_STEREO] = R.drawable.ic_mode_denoise_focus;
+
     };
     private static final int[] MODE_ICONS_NORMAL = new int[MODE_NUM_ALL];
     static {
         MODE_ICONS_NORMAL[MODE_PHOTO] = R.drawable.ic_mode_photo_normal;
+        MODE_ICONS_NORMAL[MODE_SLR_CAMERA] = R.drawable.ic_mode_pip_normal;
         MODE_ICONS_NORMAL[MODE_FACE_BEAUTY] = R.drawable.ic_mode_facebeauty_normal;
         MODE_ICONS_NORMAL[MODE_PANORAMA] = R.drawable.ic_mode_panorama_normal;
         MODE_ICONS_NORMAL[MODE_PHOTO_PIP] = R.drawable.ic_mode_pip_normal;
         MODE_ICONS_NORMAL[MODE_STEREO_CAMERA] = R.drawable.ic_mode_refocus_normal;
         MODE_ICONS_NORMAL[MODE_PHOTO_STEREO] = R.drawable.ic_mode_denoise_normal;
+
+
     };
 
     private final RotateImageView[] mModeViews = new RotateImageView[MODE_NUM_ALL];
@@ -209,12 +219,14 @@ public class ModePicker extends ViewManager implements View.OnClickListener,
         View view = inflate(R.layout.mode_picker);
         mScrollView = (ModePickerScrollView) view.findViewById(R.id.mode_picker_scroller);
         mModeViews[MODE_PHOTO] = (RotateImageView) view.findViewById(R.id.mode_photo);
+        mModeViews[MODE_SLR_CAMERA] = (RotateImageView) view.findViewById(R.id.mode_slr);
         mModeViews[MODE_PHOTO_PIP] = (RotateImageView) view.findViewById(R.id.mode_photo_pip);
         mModeViews[MODE_STEREO_CAMERA] = (RotateImageView) view
                 .findViewById(R.id.mode_stereo_camera);
         mModeViews[MODE_PHOTO_STEREO] = (RotateImageView) view
                 .findViewById(R.id.mode_photo_stereo);
         mModeViews[MODE_FACE_BEAUTY] = (RotateImageView) view.findViewById(R.id.mode_face_beauty);
+
         mModeViews[MODE_PANORAMA] = (RotateImageView) view.findViewById(R.id.mode_panorama);
         DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
         mDisplayWidth = Math.min(metrics.widthPixels, metrics.heightPixels);

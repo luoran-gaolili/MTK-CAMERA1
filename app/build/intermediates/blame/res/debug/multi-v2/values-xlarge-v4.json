@@ -12,6 +12,23 @@
                         "endColumns": "70,70,69,69,67,67",
                         "endOffsets": "121,192,262,332,400,468"
                     }
+                },
+                {
+                    "source": "/home/luoran/code/FreemeCamera-N-Project/Camera/app/src/main/res/values-xlarge/dimens.xml",
+                    "from": {
+                        "startLines": "16",
+                        "startColumns": "4",
+                        "startOffsets": "687",
+                        "endColumns": "61",
+                        "endOffsets": "744"
+                    },
+                    "to": {
+                        "startLines": "8",
+                        "startColumns": "4",
+                        "startOffsets": "473",
+                        "endColumns": "61",
+                        "endOffsets": "530"
+                    }
                 }
             ]
         }

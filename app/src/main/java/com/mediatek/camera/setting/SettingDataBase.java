@@ -219,6 +219,7 @@ public class SettingDataBase {
 
     private static final int[] RESTRCTION_SETTING_INDEX = new int[] {
         SettingConstants.ROW_SETTING_NORMAL,
+            SettingConstants.ROW_SETTING_SLR,
         SettingConstants.ROW_SETTING_HDR,
         SettingConstants.ROW_SETTING_FACE_BEAUTY,
         SettingConstants.ROW_SETTING_PANORAMA,

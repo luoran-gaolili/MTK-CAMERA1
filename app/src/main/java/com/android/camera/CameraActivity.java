@@ -57,7 +57,6 @@ import com.android.camera.ui.FrameView;
 import com.android.camera.ui.PreviewFrameLayout;
 import com.android.camera.ui.PreviewSurfaceView;
 import com.android.camera.ui.RotateLayout;
-
 import com.mediatek.camera.ICameraMode.CameraModeType;
 import com.mediatek.camera.ISettingCtrl;
 import com.mediatek.camera.ModuleManager;
@@ -406,6 +405,7 @@ public class CameraActivity extends ActivityBase implements
 
     /**
      * get permission Manager.
+     *
      * @return PermissionManager.
      */
     public PermissionManager getPermissionManager() {
@@ -416,16 +416,14 @@ public class CameraActivity extends ActivityBase implements
      * the result if CameraActivity permission check.
      * there is four permissions that must be all on, the camera can be launch normally,
      * otherwise exit the camera app.
-     * @param requestCode
-     *            camera permission check code, used when requested permissions and
-     *            the code will be back in the permissions requested result.
-     * @param permissions
-     *            the dangerous permissions that the activity defined in manifest.
-     * @param grantResults
-     *            the permission result for every permission.
+     *
+     * @param requestCode  camera permission check code, used when requested permissions and
+     *                     the code will be back in the permissions requested result.
+     * @param permissions  the dangerous permissions that the activity defined in manifest.
+     * @param grantResults the permission result for every permission.
      */
     public void onRequestPermissionsResult(int requestCode,
-            String permissions[], int[] grantResults) {
+                                           String permissions[], int[] grantResults) {
         mIsCheckingLocationPermission = false;
         if (grantResults == null || grantResults.length <= 0) {
             return;
@@ -1098,48 +1096,50 @@ public class CameraActivity extends ActivityBase implements
         public void handleMessage(Message msg) {
             // Log.i(TAG, "handleMessage(" + msg + ")");
             switch (msg.what) {
-            case MSG_CAMERA_PARAMETERS_READY:
-                notifyParametersReady();
-                break;
-            case MSG_CHECK_DISPLAY_ROTATION:
-                // Set the display orientation if display rotation has changed.
-                // Sometimes this happens when the device is held upside
-                // down and camera app is opened. Rotation animation will
-                // take some time and the rotation value we have got may be
-                // wrong. Framework does not have a callback for this now.
-                if (Util.getDisplayRotation(CameraActivity.this) != mDisplayRotation) {
-                    mCameraDeviceCtrl.setDisplayOrientation();
-                    mOrientation = OrientationEventListener.ORIENTATION_UNKNOWN;
-                    mCameraActor.onDisplayRotate();
-                }
-                if (SystemClock.uptimeMillis() - mOnResumeTime < 5000) {
-                    mMainHandler.sendEmptyMessageDelayed(
-                            MSG_CHECK_DISPLAY_ROTATION, 100);
-                }
-                notifyOrientationChanged();
-                break;
-            case MSG_SWITCH_CAMERA:
-                mCameraDeviceCtrl.switchCamera(msg.arg1);
-                break;
-            case MSG_CLEAR_SCREEN_DELAY:
-                getWindow().clearFlags(
-                        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-                break;
-            case MSG_APPLY_PARAMETERS_WHEN_IDEL:
-                mCameraDeviceCtrl.applyParameters(false);
-                break;
-            case MSG_DELAY_SHOW_ONSCREEN_INDICATOR:
-                // will handle the delay hide the remain when is show remain
-                mCameraAppUi.showText(mDelayShowInfo);
-                mCameraAppUi.showIndicator(mDelayOtherMessageTime);
-                break;
-            case MSG_UPDATE_SWITCH_ACTOR_STATE:
-                mModePicker.setEnabled(true);
-                break;
-            default:
-                break;
+                case MSG_CAMERA_PARAMETERS_READY:
+                    notifyParametersReady();
+                    break;
+                case MSG_CHECK_DISPLAY_ROTATION:
+                    // Set the display orientation if display rotation has changed.
+                    // Sometimes this happens when the device is held upside
+                    // down and camera app is opened. Rotation animation will
+                    // take some time and the rotation value we have got may be
+                    // wrong. Framework does not have a callback for this now.
+                    if (Util.getDisplayRotation(CameraActivity.this) != mDisplayRotation) {
+                        mCameraDeviceCtrl.setDisplayOrientation();
+                        mOrientation = OrientationEventListener.ORIENTATION_UNKNOWN;
+                        mCameraActor.onDisplayRotate();
+                    }
+                    if (SystemClock.uptimeMillis() - mOnResumeTime < 5000) {
+                        mMainHandler.sendEmptyMessageDelayed(
+                                MSG_CHECK_DISPLAY_ROTATION, 100);
+                    }
+                    notifyOrientationChanged();
+                    break;
+                case MSG_SWITCH_CAMERA:
+                    mCameraDeviceCtrl.switchCamera(msg.arg1);
+                    break;
+                case MSG_CLEAR_SCREEN_DELAY:
+                    getWindow().clearFlags(
+                            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                    break;
+                case MSG_APPLY_PARAMETERS_WHEN_IDEL:
+                    mCameraDeviceCtrl.applyParameters(false);
+                    break;
+                case MSG_DELAY_SHOW_ONSCREEN_INDICATOR:
+                    // will handle the delay hide the remain when is show remain
+                    mCameraAppUi.showText(mDelayShowInfo);
+                    mCameraAppUi.showIndicator(mDelayOtherMessageTime);
+                    break;
+                case MSG_UPDATE_SWITCH_ACTOR_STATE:
+                    mModePicker.setEnabled(true);
+                    break;
+                default:
+                    break;
             }
-        };
+        }
+
+        ;
     };
 
     public void onCameraOpenFailed() {
@@ -1321,6 +1321,7 @@ public class CameraActivity extends ActivityBase implements
         }
         return false;
     }
+
     private List<OnPreferenceReadyListener> mPreferenceListeners =
             new CopyOnWriteArrayList<OnPreferenceReadyListener>();
 
@@ -1430,160 +1431,169 @@ public class CameraActivity extends ActivityBase implements
     private int mOriCameraId = UNKNOWN;
     private ModePicker.OnModeChangedListener mModeChangedListener =
             new ModePicker.OnModeChangedListener() {
-        @Override
-        public void onModeChanged(int newMode) {
-            Log.d(TAG, "onModeChanged(" + newMode + ") current mode = "
-                    + mCameraActor.getMode() + ", state=" + mCameraState);
-            mPrevMode = mCameraActor.getMode();
-            mNextMode = newMode;
-            int oldMode = mPrevMode;
+                @Override
+                public void onModeChanged(int newMode) {
+                    Log.d(TAG, "onModeChanged(" + newMode + ") current mode = "
+                            + mCameraActor.getMode() + ", state=" + mCameraState);
+                    mPrevMode = mCameraActor.getMode();
+                    mNextMode = newMode;
+                    int oldMode = mPrevMode;
 
-            if (mCameraActor.getMode() != newMode) {
-                // when mode changed,remaining manager should check whether to
-                // show
-                mIsModeChanged = true;
-                // releaseCameraActor has change mLastMode
-                String oldCameraMode = mISettingCtrl
-                        .getCameraMode(getModeSettingKey(oldMode));
-                String newCameraMode = mISettingCtrl
-                        .getCameraMode(getModeSettingKey(newMode));
-                if (oldCameraMode == null || newCameraMode == null) {
-                    Log.i(TAG, "onModeChanged old or new Camera mode is null!!!");
-                    return;
-                }
-                boolean needRestart = (!oldCameraMode.equals(newCameraMode))
-                        || com.mediatek.camera.platform.Parameters.CAMERA_MODE_MTK_VDO == Integer
+                    if (mCameraActor.getMode() != newMode) {
+                        // when mode changed,remaining manager should check whether to
+                        // show
+                        mIsModeChanged = true;
+                        // releaseCameraActor has change mLastMode
+                        String oldCameraMode = mISettingCtrl
+                                .getCameraMode(getModeSettingKey(oldMode));
+                        String newCameraMode = mISettingCtrl
+                                .getCameraMode(getModeSettingKey(newMode));
+                        if (oldCameraMode == null || newCameraMode == null) {
+                            Log.i(TAG, "onModeChanged old or new Camera mode is null!!!");
+                            return;
+                        }
+                        boolean needRestart = (!oldCameraMode.equals(newCameraMode))
+                                || com.mediatek.camera.platform.Parameters.CAMERA_MODE_MTK_VDO == Integer
                                 .parseInt(newCameraMode);
-                Log.d(TAG, "needRestart = " + needRestart);
-                // if need restart preview, should do stop preview in last mode
-                if (needRestart) {
-                    mCameraActor.stopPreview();
-                }
-                releaseCameraActor(oldMode, newMode);
-                mModuleManager.setModeSettingValue(
-                        mCameraActor.getCameraModeType(oldMode), SETTING_OFF);
-                // need to select sensor when switching stereo camera.
-                judgeSensorSwitchStereoMode();
-                if (isPIPModeSwitch(oldMode, newMode)) {
-                    // when user does pip mode switch more quickly,
-                    // here try to close camera, camera start up thread may not
-                    // done,
-                    // should wait to not disturb camera status
-                    if (!isPIPMode(oldMode)) {
-                        mOriCameraId = getCameraId();
+                        Log.d(TAG, "needRestart = " + needRestart);
+                        // if need restart preview, should do stop preview in last mode
+                        if (needRestart) {
+                            mCameraActor.stopPreview();
+                        }
+                        releaseCameraActor(oldMode, newMode);
+                        mModuleManager.setModeSettingValue(
+                                mCameraActor.getCameraModeType(oldMode), SETTING_OFF);
+                        // need to select sensor when switching stereo camera.
+                        judgeSensorSwitchStereoMode();
+                        if (isPIPModeSwitch(oldMode, newMode)) {
+                            // when user does pip mode switch more quickly,
+                            // here try to close camera, camera start up thread may not
+                            // done,
+                            // should wait to not disturb camera status
+                            if (!isPIPMode(oldMode)) {
+                                mOriCameraId = getCameraId();
+                            }
+                            mCameraDeviceCtrl.closeCamera(false);
+                        }
+                        releaseCameraSwitchStereoMode(oldMode, newMode);
+                        switch (newMode) {
+                            case ModePicker.MODE_PHOTO:
+                                mCameraActor = new PhotoActor(CameraActivity.this,
+                                        mModuleManager, newMode);
+                                break;
+                            case ModePicker.MODE_SLR_CAMERA:
+                                mCameraActor = new PhotoActor(CameraActivity.this,
+                                        mModuleManager, newMode);
+                                break;
+                            case ModePicker.MODE_FACE_BEAUTY:
+                                mCameraActor = new PhotoActor(CameraActivity.this,
+                                        mModuleManager, newMode);
+                                break;
+                            case ModePicker.MODE_PANORAMA:
+                                mCameraActor = new PhotoActor(CameraActivity.this,
+                                        mModuleManager, newMode);
+                                break;
+                            case ModePicker.MODE_PHOTO_PIP:
+                                mCameraActor = new PhotoActor(CameraActivity.this,
+                                        mModuleManager, newMode);
+                                break;
+                            case ModePicker.MODE_VIDEO:
+                                mCameraActor = new VideoActor(CameraActivity.this,
+                                        mModuleManager, newMode);
+                                break;
+                            case ModePicker.MODE_VIDEO_PIP:
+                                mCameraActor = new VideoActor(CameraActivity.this,
+                                        mModuleManager, newMode);
+                                break;
+                            case ModePicker.MODE_STEREO_CAMERA:
+                                mCameraActor = new PhotoActor(CameraActivity.this,
+                                        mModuleManager, newMode);
+                                mCameraAppUi.resetSettings();
+                                break;
+                            case ModePicker.MODE_PHOTO_STEREO:
+                                mCameraActor = new PhotoActor(CameraActivity.this,
+                                        mModuleManager, newMode);
+                                break;
+                            case ModePicker.MODE_VIDEO_STEREO:
+                                mCameraActor = new VideoActor(CameraActivity.this,
+                                        mModuleManager, newMode);
+                                break;
+
+                            default:
+                                mCameraActor = new PhotoActor(CameraActivity.this,
+                                        mModuleManager, newMode);
+                                break;
+                        }
+                        // after apply settings, should change preview surface
+                        // immediately
+                        mCameraDeviceCtrl.setCameraActor(mCameraActor);
+                        // startup thread will apply these things after onResume
+                        if (mPaused || mCameraState == STATE_SWITCHING_CAMERA) {
+                            mIsModeChanged = false;
+                            Log.d(TAG, "onModeChanged return mPaused = " + mPaused);
+                            return;
+                        }
+
+                        if (isStereoModeChanged(oldMode, newMode)) {
+                            doStereoModeChanged(false);
+                            mIsModeChanged = false;
+                            Log.i(TAG, "onModeChanged isStereoModeChanged return");
+                            return;
+                        }
+
+                        if (isPIPModeSwitch(oldMode, mCameraActor.getMode())) {
+                            // the first time to update PickerManager when pip changed
+                            // to other mode
+                            doPIPModeChanged(mOriCameraId);
+                            mIsModeChanged = false;
+                            Log.i(TAG, "onModeChanged isPIPModeSwitch return");
+                            return;
+                        }
+                        // reset default focus modes.
+                        notifyOrientationChanged();
+                        mCameraDeviceCtrl.onModeChanged(needRestart);
+                        mIsModeChanged = false;
                     }
-                    mCameraDeviceCtrl.closeCamera(false);
                 }
-                releaseCameraSwitchStereoMode(oldMode, newMode);
-                switch (newMode) {
-                case ModePicker.MODE_PHOTO:
-                    mCameraActor = new PhotoActor(CameraActivity.this,
-                            mModuleManager, newMode);
-                    break;
-                case ModePicker.MODE_FACE_BEAUTY:
-                    mCameraActor = new PhotoActor(CameraActivity.this,
-                            mModuleManager, newMode);
-                    break;
-                case ModePicker.MODE_PANORAMA:
-                    mCameraActor = new PhotoActor(CameraActivity.this,
-                            mModuleManager, newMode);
-                    break;
-                case ModePicker.MODE_PHOTO_PIP:
-                    mCameraActor = new PhotoActor(CameraActivity.this,
-                            mModuleManager, newMode);
-                    break;
-                case ModePicker.MODE_VIDEO:
-                    mCameraActor = new VideoActor(CameraActivity.this,
-                            mModuleManager, newMode);
-                    break;
-                case ModePicker.MODE_VIDEO_PIP:
-                    mCameraActor = new VideoActor(CameraActivity.this,
-                            mModuleManager, newMode);
-                    break;
-                case ModePicker.MODE_STEREO_CAMERA:
-                    mCameraActor = new PhotoActor(CameraActivity.this,
-                            mModuleManager, newMode);
-                    mCameraAppUi.resetSettings();
-                    break;
-                case ModePicker.MODE_PHOTO_STEREO:
-                    mCameraActor = new PhotoActor(CameraActivity.this,
-                            mModuleManager, newMode);
-                    break;
-                case ModePicker.MODE_VIDEO_STEREO:
-                    mCameraActor = new VideoActor(CameraActivity.this,
-                            mModuleManager, newMode);
-                    break;
-
-                default:
-                    mCameraActor = new PhotoActor(CameraActivity.this,
-                            mModuleManager, newMode);
-                    break;
-                }
-                // after apply settings, should change preview surface
-                // immediately
-                mCameraDeviceCtrl.setCameraActor(mCameraActor);
-                // startup thread will apply these things after onResume
-                if (mPaused || mCameraState == STATE_SWITCHING_CAMERA) {
-                    mIsModeChanged = false;
-                    Log.d(TAG, "onModeChanged return mPaused = " + mPaused);
-                    return;
-                }
-
-               if (isStereoModeChanged(oldMode, newMode)) {
-                   doStereoModeChanged(false);
-                   mIsModeChanged = false;
-                   Log.i(TAG, "onModeChanged isStereoModeChanged return");
-                   return;
-               }
-
-                if (isPIPModeSwitch(oldMode, mCameraActor.getMode())) {
-                    // the first time to update PickerManager when pip changed
-                    // to other mode
-                    doPIPModeChanged(mOriCameraId);
-                    mIsModeChanged = false;
-                    Log.i(TAG, "onModeChanged isPIPModeSwitch return");
-                    return;
-                }
-                // reset default focus modes.
-                notifyOrientationChanged();
-                mCameraDeviceCtrl.onModeChanged(needRestart);
-                mIsModeChanged = false;
-            }
-        }
-    };
+            };
 
     private String getModeSettingKey(int mode) {
         String key = null;
         switch (mode) {
-        case ModePicker.MODE_PHOTO:
-            key = SettingConstants.KEY_NORMAL;
-            break;
-        case ModePicker.MODE_PANORAMA:
-            key = SettingConstants.KEY_PANORAMA;
-            break;
-        case ModePicker.MODE_VIDEO:
-            key = SettingConstants.KEY_VIDEO;
-            break;
-        case ModePicker.MODE_VIDEO_PIP:
-            key = SettingConstants.KEY_VIDEO_PIP;
-            break;
-        case ModePicker.MODE_PHOTO_PIP:
-            key = SettingConstants.KEY_PHOTO_PIP;
-            break;
-        case ModePicker.MODE_FACE_BEAUTY:
-            key = SettingConstants.KEY_FACE_BEAUTY;
-            break;
-        case ModePicker.MODE_STEREO_CAMERA:
-            key = SettingConstants.KEY_REFOCUS;
-            break;
-        case ModePicker.MODE_PHOTO_STEREO:
-            key = SettingConstants.KEY_PHOTO_STEREO;
-            break;
-        case ModePicker.MODE_VIDEO_STEREO:
-            key = SettingConstants.KEY_VIDEO_STEREO;
-            break;
-        default:
-            break;
+            case ModePicker.MODE_PHOTO:
+                key = SettingConstants.KEY_NORMAL;
+                break;
+
+            case ModePicker.MODE_SLR_CAMERA:
+                key = SettingConstants.KEY_SLR;
+                break;
+
+            case ModePicker.MODE_PANORAMA:
+                key = SettingConstants.KEY_PANORAMA;
+                break;
+            case ModePicker.MODE_VIDEO:
+                key = SettingConstants.KEY_VIDEO;
+                break;
+            case ModePicker.MODE_VIDEO_PIP:
+                key = SettingConstants.KEY_VIDEO_PIP;
+                break;
+            case ModePicker.MODE_PHOTO_PIP:
+                key = SettingConstants.KEY_PHOTO_PIP;
+                break;
+            case ModePicker.MODE_FACE_BEAUTY:
+                key = SettingConstants.KEY_FACE_BEAUTY;
+                break;
+            case ModePicker.MODE_STEREO_CAMERA:
+                key = SettingConstants.KEY_REFOCUS;
+                break;
+            case ModePicker.MODE_PHOTO_STEREO:
+                key = SettingConstants.KEY_PHOTO_STEREO;
+                break;
+            case ModePicker.MODE_VIDEO_STEREO:
+                key = SettingConstants.KEY_VIDEO_STEREO;
+                break;
+            default:
+                break;
         }
         return key;
     }
@@ -1613,19 +1623,21 @@ public class CameraActivity extends ActivityBase implements
     }
 
     // Camera Decoupling --->begin
+
     /**
      * because current on Listener and cancel Listener is add on the shutter
      * button and video button so when we want show on and cancel button, first
      * need set the video and photo listener to null
-     * @param okOnClickListener callback
-     * @param cancelOnClickListener callback
+     *
+     * @param okOnClickListener      callback
+     * @param cancelOnClickListener  callback
      * @param retatekOnClickListener callback
-     * @param playOnClickListener callback
+     * @param playOnClickListener    callback
      */
     public void applyReviewCallbacks(OnClickListener okOnClickListener,
-            OnClickListener cancelOnClickListener,
-            OnClickListener retatekOnClickListener,
-            OnClickListener playOnClickListener) {
+                                     OnClickListener cancelOnClickListener,
+                                     OnClickListener retatekOnClickListener,
+                                     OnClickListener playOnClickListener) {
         mPlayListener = playOnClickListener;
         mRetakeListener = retatekOnClickListener;
     }
@@ -1754,10 +1766,10 @@ public class CameraActivity extends ActivityBase implements
 
         @Override
         public void onStereoCameraPreferenceChanged(ListPreference preference,
-                int type) {
+                                                    int type) {
             if (preference != null
                     && preference.getKey().equals(
-                            SettingConstants.KEY_DUAL_CAMERA_MODE)) {
+                    SettingConstants.KEY_DUAL_CAMERA_MODE)) {
                 Log.d(TAG, "onStereoCameraPreferenceChanged, type = " + type);
                 if (getCurrentMode() == ModePicker.MODE_STEREO_CAMERA) {
                     if (type == DUAL_CAMERA_ENHANCE_ENABLE) {
@@ -1874,7 +1886,7 @@ public class CameraActivity extends ActivityBase implements
             if (mPaused
                     || mPendingSwitchCameraId != UNKNOWN
                     || !ModeChecker.getModePickerVisible(CameraActivity.this,
-                            cameraId, getCurrentMode())
+                    cameraId, getCurrentMode())
                     || !mCameraDeviceCtrl.isCameraOpened()) {
                 return false;
             }
@@ -1966,7 +1978,7 @@ public class CameraActivity extends ActivityBase implements
 
         @Override
         public boolean onModePicked(int mode, String value,
-                ListPreference preference) {
+                                    ListPreference preference) {
             mModePicker.setModePreference(preference);
             // when click hdr, the ModePicker view should be
             // disabled during changed mode
@@ -2254,66 +2266,66 @@ public class CameraActivity extends ActivityBase implements
 
             switch (action) {
 
-            case Intent.ACTION_MEDIA_EJECT:
-                if (isSameStorage(intent)) {
-                    Storage.setStorageReady(false);
-                    mCameraActor.onMediaEject();
-                }
-                break;
+                case Intent.ACTION_MEDIA_EJECT:
+                    if (isSameStorage(intent)) {
+                        Storage.setStorageReady(false);
+                        mCameraActor.onMediaEject();
+                    }
+                    break;
 
-            case Intent.ACTION_MEDIA_UNMOUNTED:
-                if (isSameStorage(intent)) {
-                    String internal = Storage.getInternalVolumePath();
-                    if (internal != null) {
-                        if (!Storage.updateDirectory(internal)) {
-                            setPath(Storage.getCameraScreenNailPath());
+                case Intent.ACTION_MEDIA_UNMOUNTED:
+                    if (isSameStorage(intent)) {
+                        String internal = Storage.getInternalVolumePath();
+                        if (internal != null) {
+                            if (!Storage.updateDirectory(internal)) {
+                                setPath(Storage.getCameraScreenNailPath());
+                            }
+                        }
+                    } else {
+                        if (!FeatureSwitcher.is2SdCardSwapSupport()) {
+                            updateStorageDirectory();
                         }
                     }
-                } else {
-                    if (!FeatureSwitcher.is2SdCardSwapSupport()) {
-                        updateStorageDirectory();
-                    }
-                }
-                mCameraAppUi.clearRemainAvaliableSpace();
-                mCameraAppUi.showRemainHint();
-                mCameraAppUi.forceThumbnailUpdate();
-                break;
-
-            case Intent.ACTION_MEDIA_MOUNTED:
-                updateStorageDirectory();
-                if (isSameStorage(intent)) {
-                    Storage.setStorageReady(true);
-                    mCameraAppUi.clearRemainAvaliableSpace();
-                    mCameraAppUi.showRemainHint();
-                }
-                break;
-
-            case Intent.ACTION_MEDIA_CHECKING:
-                if (isSameStorage(intent)) {
-                    mCameraAppUi.clearRemainAvaliableSpace();
-                    mCameraAppUi.showRemainHint();
-                }
-                break;
-
-            case Intent.ACTION_MEDIA_SCANNER_STARTED:
-                if (!FeatureSwitcher.is2SdCardSwapSupport()) {
-                    updateStorageDirectory();
-                }
-                if (isSameStorage(intent.getData())) {
-                    mCameraAppUi.showToast(R.string.wait);
-                }
-                break;
-
-            case Intent.ACTION_MEDIA_SCANNER_FINISHED:
-                if (isSameStorage(intent.getData())) {
                     mCameraAppUi.clearRemainAvaliableSpace();
                     mCameraAppUi.showRemainHint();
                     mCameraAppUi.forceThumbnailUpdate();
-                }
-                break;
+                    break;
 
-            default:
-                break;
+                case Intent.ACTION_MEDIA_MOUNTED:
+                    updateStorageDirectory();
+                    if (isSameStorage(intent)) {
+                        Storage.setStorageReady(true);
+                        mCameraAppUi.clearRemainAvaliableSpace();
+                        mCameraAppUi.showRemainHint();
+                    }
+                    break;
+
+                case Intent.ACTION_MEDIA_CHECKING:
+                    if (isSameStorage(intent)) {
+                        mCameraAppUi.clearRemainAvaliableSpace();
+                        mCameraAppUi.showRemainHint();
+                    }
+                    break;
+
+                case Intent.ACTION_MEDIA_SCANNER_STARTED:
+                    if (!FeatureSwitcher.is2SdCardSwapSupport()) {
+                        updateStorageDirectory();
+                    }
+                    if (isSameStorage(intent.getData())) {
+                        mCameraAppUi.showToast(R.string.wait);
+                    }
+                    break;
+
+                case Intent.ACTION_MEDIA_SCANNER_FINISHED:
+                    if (isSameStorage(intent.getData())) {
+                        mCameraAppUi.clearRemainAvaliableSpace();
+                        mCameraAppUi.showRemainHint();
+                        mCameraAppUi.forceThumbnailUpdate();
+                    }
+                    break;
+
+                default:
+                    break;
             }
         }
     };
@@ -2445,6 +2457,7 @@ public class CameraActivity extends ActivityBase implements
 
     //**********************************************************TODO PIP and stereo
     private boolean mIsStereoToVideoMode;
+
     public boolean isNeedOpenStereoCamera() {
         boolean enable = false;
         enable = (SettingUtils.readPreferredStereoCamera(mPreferences))
@@ -2458,7 +2471,7 @@ public class CameraActivity extends ActivityBase implements
         if (mIsModeChanged
                 && getListPreference(SettingConstants.ROW_SETTING_FAST_AF) != null
                 && SETTING_ON.equals(getListPreference(
-                        SettingConstants.ROW_SETTING_FAST_AF).getValue())) {
+                SettingConstants.ROW_SETTING_FAST_AF).getValue())) {
             enable = true;
         }
         if (mIsStereoToVideoMode) {
@@ -2482,16 +2495,19 @@ public class CameraActivity extends ActivityBase implements
         return (isPIPMode(lastMode) && !isPIPMode(newMode))
                 || (!isPIPMode(lastMode) && isPIPMode(newMode));
     }
+
     private boolean isStereoMode(int mode) {
         return mode == ModePicker.MODE_VIDEO_STEREO
                 || mode == ModePicker.MODE_STEREO_CAMERA;
     }
+
     private boolean isRefocusSwitchNormal(int lastMode, int newMode) {
         return (lastMode == ModePicker.MODE_STEREO_CAMERA && newMode
                 != ModePicker.MODE_VIDEO)
                 || (lastMode != ModePicker.MODE_STEREO_CAMERA
                 && newMode == ModePicker.MODE_STEREO_CAMERA);
     }
+
     private boolean isDenoiseSwitchNormal(int lastMode, int newMode) {
         return (lastMode == ModePicker.MODE_PHOTO_STEREO && newMode
                 != ModePicker.MODE_VIDEO)
@@ -2505,10 +2521,12 @@ public class CameraActivity extends ActivityBase implements
         return lastMode == ModePicker.MODE_STEREO_CAMERA
                 && newMode == ModePicker.MODE_VIDEO;
     }
+
     private boolean isStereoModeSwitch(int lastMode, int newMode) {
         return (isStereoMode(lastMode) && !isStereoMode(newMode))
                 || (!isStereoMode(lastMode) && isStereoMode(newMode));
     }
+
     private boolean isFastAfEnabled() {
         Log.d(TAG, "isFastAfEnabled" + getListPreference(
                 SettingConstants.KEY_FAST_AF));
@@ -2560,7 +2578,7 @@ public class CameraActivity extends ActivityBase implements
                 Log.i(TAG, "isRefocusSwitchNormal return");
                 return true;
             }
-        // Vsdof Stereo capture switch other mode check.
+            // Vsdof Stereo capture switch other mode check.
         } else {
             if (isStereoModeSwitch(oldMode, newMode)) {
                 Log.i(TAG, "isStereoModeSwitch return");
@@ -2574,6 +2592,7 @@ public class CameraActivity extends ActivityBase implements
         }
         return false;
     }
+
     private void doStereoModeChanged(boolean needSync) {
         // cameraId == 0, need to open sensor 0.
         // cameraId == 1, need to open sensor 1.

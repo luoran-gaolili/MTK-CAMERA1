@@ -43,6 +43,7 @@ public interface ICameraMode {
 
     public enum CameraModeType {
         EXT_MODE_PHOTO,
+        EXT_MODE_SLR,
         EXT_MODE_VIDEO,
         EXT_MODE_FACE_BEAUTY,
         EXT_MODE_PANORAMA,

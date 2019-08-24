@@ -47,7 +47,7 @@ public class SettingConstants {
     public static final String KEY_VERSION                          = "pref_version_key";
     public static final String KEY_LOCAL_VERSION                    = "pref_local_version_key";
 
-    public static final int SETTING_COUNT = 62;
+    public static final int SETTING_COUNT = 63;
     // setting key
     public static final String KEY_CAMERA_ID                 = "pref_camera_id_key";
     public static final String KEY_JPEG_QUALITY              = "pref_camera_jpegquality_key";
@@ -112,6 +112,9 @@ public class SettingConstants {
     public static final String KEY_VIDEO_STEREO              = "video_stereo_key";
     public static final String KEY_PHOTO_STEREO              = "photo_stereo_key";
     public static final String KEY_NORMAL                    = "normal_key";
+
+    public static final String KEY_SLR                    = "slr_key";
+
     public static final String KEY_OBJECT_TRACKING           = "object_tracking_key";
     public static final String KEY_HEARTBEAT_MONITOR         = "heartbeat-monitor";
     public static final String KEY_DNG                       = "pref_dng_key";
@@ -184,6 +187,8 @@ public class SettingConstants {
     public static final int ROW_SETTING_PHOTO_STEREO              = 60;
     public static final int ROW_SETTING_REFOCUS_VIDEO_QUALITY     = 61;
 
+    public static final int ROW_SETTING_SLR                    = 62;
+
     public final static int NEITHER_IN_PARAMETER_NOR_IN_PREFERENCE = 0;
     public final static int ONLY_IN_PARAMETER = 1;
     public final static int ONLY_IN_PEFERENCE = 2;
@@ -225,6 +230,7 @@ public class SettingConstants {
         SETTING_TYPE[ROW_SETTING_VIDEO]                = NEITHER_IN_PARAMETER_NOR_IN_PREFERENCE;
         SETTING_TYPE[ROW_SETTING_REFOCUS]              = NEITHER_IN_PARAMETER_NOR_IN_PREFERENCE;
         SETTING_TYPE[ROW_SETTING_NORMAL]               = NEITHER_IN_PARAMETER_NOR_IN_PREFERENCE;
+        SETTING_TYPE[ROW_SETTING_SLR]               = NEITHER_IN_PARAMETER_NOR_IN_PREFERENCE;
         SETTING_TYPE[ROW_SETTING_OBJECT_TRACKING]      = NEITHER_IN_PARAMETER_NOR_IN_PREFERENCE;
         SETTING_TYPE[ROW_SETTING_VIDEO_STEREO]
                 = NEITHER_IN_PARAMETER_NOR_IN_PREFERENCE;
@@ -325,6 +331,7 @@ public class SettingConstants {
         KEYS_FOR_SETTING[ROW_SETTING_VIDEO_STEREO]          = KEY_VIDEO_STEREO;
         KEYS_FOR_SETTING[ROW_SETTING_PHOTO_STEREO]          = KEY_PHOTO_STEREO;
         KEYS_FOR_SETTING[ROW_SETTING_NORMAL]                = KEY_NORMAL;
+        KEYS_FOR_SETTING[ROW_SETTING_SLR]                = KEY_SLR;
         KEYS_FOR_SETTING[ROW_SETTING_OBJECT_TRACKING]       = KEY_OBJECT_TRACKING;
         KEYS_FOR_SETTING[ROW_SETTING_HEARTBEAT_MONITOR]     = KEY_HEARTBEAT_MONITOR;
         KEYS_FOR_SETTING[ROW_SETTING_DNG]                   = KEY_DNG;

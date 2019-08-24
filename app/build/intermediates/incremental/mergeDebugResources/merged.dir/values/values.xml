@@ -1224,6 +1224,7 @@
     <string name="accessibility_switch_to_face_beauty">Face beauty mode</string>
     <string name="accessibility_switch_to_panorama">Panorama mode</string>
     <string name="accessibility_switch_to_pip">PIP mode</string>
+    <string name="accessibility_switch_to_slr">Slr mode</string>
     <string name="accessibility_switch_to_stereo_camera">Super de-noise mode</string>
     <string name="accessibility_video_shutter_button">Video shutter button</string>
     <string name="af_multi_mode" translatable="false">multi</string>

@@ -113,7 +113,7 @@ public class SettingCtrl implements ISettingCtrl {
             return;
         }
 
-        if (SettingConstants.KEY_NORMAL.equals(settingKey)) {
+        if (SettingConstants.KEY_NORMAL.equals(settingKey)/* || SettingConstants.KEY_SLR.equals(settingKey)*/) {
 //            Log.i(TAG, "[onSettingChanged] settingKey is KEY_NORMAL,return.");
             return;
         }

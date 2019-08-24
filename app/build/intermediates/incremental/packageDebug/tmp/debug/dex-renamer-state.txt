@@ -1,4 +1,4 @@
-#Thu Aug 22 19:04:58 CST 2019
+#Sat Aug 24 10:23:45 CST 2019
 base.0=/home/luoran/code/FreemeCamera-N-Project/Camera/app/build/intermediates/transforms/dexMerger/debug/0
 path.0=classes.dex
 renamed.0=classes.dex

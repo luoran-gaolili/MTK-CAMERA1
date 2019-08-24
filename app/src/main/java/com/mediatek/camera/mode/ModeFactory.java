@@ -74,6 +74,9 @@ public class ModeFactory {
         case EXT_MODE_PHOTO:
             return new PhotoMode(cameraContext);
 
+            case EXT_MODE_SLR:
+                return new PhotoMode(cameraContext);
+
         case EXT_MODE_FACE_BEAUTY:
             return new FaceBeautyMode(cameraContext);
 

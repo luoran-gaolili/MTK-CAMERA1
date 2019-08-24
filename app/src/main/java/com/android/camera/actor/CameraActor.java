@@ -220,6 +220,10 @@ public abstract class CameraActor {
             mode = CameraModeType.EXT_MODE_PHOTO;
             break;
 
+            case ModePicker.MODE_SLR_CAMERA:
+                mode = CameraModeType.EXT_MODE_SLR;
+                break;
+
         case ModePicker.MODE_PHOTO_PIP:
             mode = CameraModeType.EXT_MODE_PHOTO_PIP;
             break;
