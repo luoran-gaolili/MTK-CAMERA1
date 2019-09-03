@@ -61,14 +61,17 @@ import android.provider.MediaStore;
 import android.util.Size;
 import android.view.View;
 
+import com.android.camera.CameraActivity;
 import com.android.camera.DngHelper;
 import com.android.camera.Exif;
 
+import com.android.camera.manager.ModePicker;
 import com.mediatek.camera.AdditionManager;
 import com.mediatek.camera.ICameraAddition;
 import com.mediatek.camera.ICameraAddition.AdditionActionType;
 import com.mediatek.camera.ICameraContext;
 import com.mediatek.camera.R;
+import com.mediatek.camera.mode.slr.BvirtualView;
 import com.mediatek.camera.platform.ICameraAppUi.ShutterButtonType;
 import com.mediatek.camera.platform.ICameraAppUi.ViewState;
 import com.mediatek.camera.platform.ICameraDeviceManager.ICameraDevice.AutoFocusMvCallback;
@@ -559,6 +562,18 @@ public class PhotoMode extends CameraMode implements FocusListener, ICameraAddit
             // add this check due to the onCanCapture don't send to application in some condition.
             if (mCapturedImageCount > 0) {
                 --mCapturedImageCount;
+            }
+
+            CameraActivity cameraActivity = null;
+            BvirtualView bvirtualView = null;
+
+            if(mActivity instanceof CameraActivity){
+                cameraActivity = (CameraActivity) mActivity;
+            }
+
+            if(cameraActivity.getCurrentMode() == ModePicker.MODE_SLR_CAMERA){
+                bvirtualView = cameraActivity.getBvirtualView();
+                jpegData = bvirtualView.blendJpegData(jpegData);
             }
             // Calculate the width and the height of the jpeg.
             if (!mIModuleCtrl.isImageCaptureIntent()) {

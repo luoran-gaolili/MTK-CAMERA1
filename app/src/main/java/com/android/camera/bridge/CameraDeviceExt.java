@@ -38,6 +38,7 @@ package com.android.camera.bridge;
 
 import java.util.List;
 
+import com.android.camera.CameraActivity;
 import com.android.camera.CameraManager;
 import com.android.camera.ComboPreferences;
 import com.android.camera.Log;
@@ -57,6 +58,7 @@ import android.location.Location;
 import android.media.CameraProfile;
 import android.view.SurfaceHolder;
 
+import com.android.camera.manager.ModePicker;
 import com.mediatek.camera.setting.SettingConstants;
 import com.mediatek.camera.setting.SettingUtils;
 
@@ -196,6 +198,7 @@ public class CameraDeviceExt implements ICameraDeviceExt {
                 pictureRatio = ratioString;
             }
         }
+
         SettingUtils.setPreviewSize(mActivity, mParametersExt, pictureRatio);
 
         String pictureSize = mPreferences.getString(SettingConstants.KEY_PICTURE_SIZE, null);
@@ -443,6 +446,11 @@ public class CameraDeviceExt implements ICameraDeviceExt {
                 mParametersExt.enableRecordingSound(String.valueOf(0));
             }
         });
+    }
+
+    @Override
+    public void setPreviewCallback(PreviewCallback cb) {
+        mCameraDevice.setPreviewCallback(cb);
     }
 
     private boolean isImageRefocusSupported() {

@@ -140,4 +140,6 @@
     <dimen name="mode_transition_view_icon_size">64dp</dimen>
     <dimen name="screen_on_margin_top">8dp</dimen>
     <dimen name="screen_on_margin_bottom">8dp</dimen>
+
+    <dimen name="freeme_diaphragm_radius">65dp</dimen>
 </resources>

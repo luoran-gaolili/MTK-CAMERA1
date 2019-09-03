@@ -18,6 +18,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center">
+
     <FrameLayout android:id="@+id/preview_border"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -36,4 +37,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     <include layout="@layout/focus_indicator"/>
+
+
 </com.android.camera.ui.PreviewFrameLayout>

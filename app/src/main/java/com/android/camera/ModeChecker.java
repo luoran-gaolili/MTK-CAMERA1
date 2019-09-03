@@ -67,7 +67,7 @@ public class ModeChecker {
 
         // back front
         MATRIX_NORMAL_ENABLE[ModePicker.MODE_PHOTO] = new boolean[]{true, true};
-        MATRIX_NORMAL_ENABLE[ModePicker.MODE_SLR_CAMERA] = new boolean[]{false, false};
+        MATRIX_NORMAL_ENABLE[ModePicker.MODE_SLR_CAMERA] = new boolean[]{true, false};
         MATRIX_NORMAL_ENABLE[ModePicker.MODE_HDR] = new boolean[]{true, false};
         MATRIX_NORMAL_ENABLE[ModePicker.MODE_FACE_BEAUTY] = new boolean[]{true, true};
         MATRIX_NORMAL_ENABLE[ModePicker.MODE_PANORAMA] = new boolean[]{true, false};
@@ -242,7 +242,6 @@ public class ModeChecker {
         for (int i = 0; i < ModePicker.MODE_VIDEO; i++) {
             // asd, hdr, video is not show in ModePicker, so filter
             // them
-            Log.d("LUORAN", "(matrix[i][cameraId]:" + matrix[ModePicker.MODE_SLR_CAMERA][0]);
             if (matrix[i][cameraId]
                     && i != ModePicker.MODE_ASD
                     && i != ModePicker.MODE_HDR) {

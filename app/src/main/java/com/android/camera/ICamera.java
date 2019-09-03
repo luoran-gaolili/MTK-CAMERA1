@@ -160,4 +160,6 @@ public interface ICamera {
     void unlock();
 
     public void setOneShotPreviewCallback(PreviewCallback cb);
+
+    public void setPreviewCallback(PreviewCallback cb);
 }

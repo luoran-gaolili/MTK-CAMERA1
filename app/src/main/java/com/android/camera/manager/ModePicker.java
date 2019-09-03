@@ -46,10 +46,10 @@ import com.android.camera.CameraActivity;
 import com.android.camera.FeatureSwitcher;
 import com.android.camera.Log;
 import com.android.camera.ModeChecker;
-import com.mediatek.camera.R;
 import com.android.camera.ui.ModePickerScrollView;
 import com.android.camera.ui.RotateImageView;
 
+import com.mediatek.camera.R;
 import com.mediatek.camera.setting.preference.ListPreference;
 
 public class ModePicker extends ViewManager implements View.OnClickListener,
@@ -66,8 +66,8 @@ public class ModePicker extends ViewManager implements View.OnClickListener,
     // Before MODE_VIDEO is "capture mode" for UI,switch "capture mode"
     // remaining view should not show
     public static final int MODE_PHOTO = 0;
-    public static final int MODE_SLR_CAMERA = 2;
-    public static final int MODE_HDR = 1;
+    public static final int MODE_SLR_CAMERA = 1;
+    public static final int MODE_HDR = 2;
     public static final int MODE_FACE_BEAUTY = 3;
     public static final int MODE_PANORAMA = 4;
 
@@ -98,7 +98,7 @@ public class ModePicker extends ViewManager implements View.OnClickListener,
     private static final int DELAY_MSG_HIDE_MS = 3000; // 3s
     private static final int MODE_DEFAULT_MARGINBOTTOM = 100;
     private static final int MODE_DEFAULT_PADDING = 20;
-    private static final int MODE_MIN_COUNTS = 4;
+    private static final int MODE_MIN_COUNTS = 5;
     private LinearLayout.LayoutParams mLayoutParams = new LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -108,7 +108,7 @@ public class ModePicker extends ViewManager implements View.OnClickListener,
         MODE_FACE_BEAUTY, MODE_PANORAMA};
     static {
         MODE_ICONS_HIGHTLIGHT[MODE_PHOTO] = R.drawable.ic_mode_photo_focus;
-        MODE_ICONS_HIGHTLIGHT[MODE_SLR_CAMERA] = R.drawable.ic_mode_pip_focus;
+        MODE_ICONS_HIGHTLIGHT[MODE_SLR_CAMERA] = R.drawable.ic_mode_slr_focus;
         MODE_ICONS_HIGHTLIGHT[MODE_FACE_BEAUTY] = R.drawable.ic_mode_facebeauty_focus;
         MODE_ICONS_HIGHTLIGHT[MODE_PANORAMA] = R.drawable.ic_mode_panorama_focus;
         MODE_ICONS_HIGHTLIGHT[MODE_PHOTO_PIP] = R.drawable.ic_mode_pip_focus;
@@ -119,7 +119,7 @@ public class ModePicker extends ViewManager implements View.OnClickListener,
     private static final int[] MODE_ICONS_NORMAL = new int[MODE_NUM_ALL];
     static {
         MODE_ICONS_NORMAL[MODE_PHOTO] = R.drawable.ic_mode_photo_normal;
-        MODE_ICONS_NORMAL[MODE_SLR_CAMERA] = R.drawable.ic_mode_pip_normal;
+        MODE_ICONS_NORMAL[MODE_SLR_CAMERA] = R.drawable.ic_mode_slr_normal;
         MODE_ICONS_NORMAL[MODE_FACE_BEAUTY] = R.drawable.ic_mode_facebeauty_normal;
         MODE_ICONS_NORMAL[MODE_PANORAMA] = R.drawable.ic_mode_panorama_normal;
         MODE_ICONS_NORMAL[MODE_PHOTO_PIP] = R.drawable.ic_mode_pip_normal;

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.filterfw.core.Frame;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Face;
 import android.hardware.Camera.Parameters;
@@ -17,6 +18,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
 import android.os.MessageQueue;
@@ -32,7 +34,9 @@ import android.view.Surface;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.android.camera.GestureDispatcher.GestureDispatcherListener;
@@ -61,6 +65,8 @@ import com.mediatek.camera.ICameraMode.CameraModeType;
 import com.mediatek.camera.ISettingCtrl;
 import com.mediatek.camera.ModuleManager;
 import com.mediatek.camera.R;
+import com.mediatek.camera.mode.slr.BvirtualView;
+import com.mediatek.camera.mode.slr.GaussianBlur;
 import com.mediatek.camera.platform.ICameraAppUi;
 import com.mediatek.camera.platform.ICameraAppUi.CommonUiType;
 import com.mediatek.camera.platform.ICameraAppUi.GestureListener;
@@ -175,6 +181,7 @@ public class CameraActivity extends ActivityBase implements
     private boolean mIsAPI2Inited = false;
     private boolean mIsCheckingLocationPermission = false;
     private ContentProviderClient mMediaProviderClient;
+	private WorkerHandler mWorkerHandler;
 
     // PreviewFrameLayout size has changed.implement
     // PreviewFrameLayout.OnSizeChangedListener @{
@@ -196,6 +203,9 @@ public class CameraActivity extends ActivityBase implements
         }
         return mCameraActivityBridge;
     }
+
+    private BvirtualView mBvirtualView;
+    private FrameLayout mFrameLayout;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -239,6 +249,7 @@ public class CameraActivity extends ActivityBase implements
         setContentView(R.layout.camera);
         ViewGroup appRoot = (ViewGroup) findViewById(R.id.camera_app_root);
         appRoot.bringToFront();
+        mFrameLayout = (FrameLayout) findViewById(R.id.camera_root);
         CameraPerformanceTracker.onEvent(TAG,
                 CameraPerformanceTracker.NAME_CAMERA_VIEW_OPERATION,
                 CameraPerformanceTracker.ISEND);
@@ -316,6 +327,46 @@ public class CameraActivity extends ActivityBase implements
                 CameraPerformanceTracker.NAME_CAMERA_ON_CREATE,
                 CameraPerformanceTracker.ISEND);
 
+        HandlerThread t = new HandlerThread("thumbnail-creation-thread");
+        t.start();
+        mWorkerHandler = new WorkerHandler(t.getLooper());
+
+        mWorkerHandler.sendEmptyMessage(SLR_INIT_GAUSSIAN_BLUR);
+
+    }
+
+    public BvirtualView getBvirtualView(){
+        return mBvirtualView;
+    }
+
+    private static final int SLR_INIT_GAUSSIAN_BLUR = 0;
+
+    public class WorkerHandler extends Handler {
+        public WorkerHandler(Looper looper) {
+            super(looper);
+            Log.i(TAG, "[WorkerHandler]new...");
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case SLR_INIT_GAUSSIAN_BLUR:
+                    if (mGaussianBlur == null) {
+                        mGaussianBlur = new GaussianBlur(CameraActivity.this);
+                    }
+
+                default :break;
+            }
+        }
+    }
+
+    private GaussianBlur mGaussianBlur;
+
+    public GaussianBlur getGaussianBlur(){
+        if(mGaussianBlur == null){
+            return null;
+        }
+        return mGaussianBlur;
     }
 
     @Override
@@ -336,6 +387,8 @@ public class CameraActivity extends ActivityBase implements
         }
         Log.d(TAG, "onRestart() mForceFinishing=" + mForceFinishing);
     }
+
+    private ViewStub mPreviewAfterStub;
 
     @Override
     protected void onResume() {
@@ -374,6 +427,15 @@ public class CameraActivity extends ActivityBase implements
         if (mPermissionManager.requestCameraLaunchPermissions()) {
             mCameraDeviceCtrl.onResume();
         }
+
+        mPreviewAfterStub = (ViewStub) mFrameLayout.findViewById(R.id.freeme_preview_after_view);
+        if (mPreviewAfterStub != null) {
+            mPreviewAfterStub.inflate();
+        }
+
+        mBvirtualView = mFrameLayout.findViewById(R.id.bvirtual_view);
+        mBvirtualView.init(this);
+        mCameraDeviceCtrl.setPreviewChangeListener(mBvirtualView);
 
         CameraPerformanceTracker.onEvent(TAG,
                 CameraPerformanceTracker.NAME_RESUME_NOTIFY,
@@ -571,6 +633,8 @@ public class CameraActivity extends ActivityBase implements
         CameraPerformanceTracker.onEvent(TAG,
                 CameraPerformanceTracker.NAME_CAMERA_ON_DESTROY,
                 CameraPerformanceTracker.ISEND);
+
+        mWorkerHandler.getLooper().quit();
     }
 
     @Override
@@ -584,6 +648,10 @@ public class CameraActivity extends ActivityBase implements
         mCameraActor.onActivityResult(requestCode, resultCode, data);
     }
 
+
+    public int getCurrentCameraId(){
+        return mCameraDeviceCtrl.getCameraId();
+    }
     @Override
     public void onBackPressed() {
         Log.d(TAG, "onBackPressed()");
@@ -656,7 +724,6 @@ public class CameraActivity extends ActivityBase implements
             // For tablet
             if (FeatureSwitcher.isSubSettingEnabled()) {
                 mCameraAppUi.collapseSubSetting(true); // need to check it?
-
             }
 
             if (isCancelSingleTapUp()) {
@@ -670,6 +737,10 @@ public class CameraActivity extends ActivityBase implements
                             x, y);
                 }
             }
+        }
+
+        if (mBvirtualView != null && mBvirtualView.getVisibility() == View.VISIBLE) {
+            mBvirtualView.onSingleTapUp(x, y);
         }
     }
 
@@ -1456,6 +1527,7 @@ public class CameraActivity extends ActivityBase implements
                                 || com.mediatek.camera.platform.Parameters.CAMERA_MODE_MTK_VDO == Integer
                                 .parseInt(newCameraMode);
                         Log.d(TAG, "needRestart = " + needRestart);
+
                         // if need restart preview, should do stop preview in last mode
                         if (needRestart) {
                             mCameraActor.stopPreview();
@@ -1549,6 +1621,13 @@ public class CameraActivity extends ActivityBase implements
                             Log.i(TAG, "onModeChanged isPIPModeSwitch return");
                             return;
                         }
+
+                        if(newMode == ModePicker.MODE_SLR_CAMERA){
+                            mBvirtualView.setVisibility(View.VISIBLE);
+                        } else {
+                            mBvirtualView.setVisibility(View.GONE);
+                        }
+
                         // reset default focus modes.
                         notifyOrientationChanged();
                         mCameraDeviceCtrl.onModeChanged(needRestart);
@@ -1749,8 +1828,18 @@ public class CameraActivity extends ActivityBase implements
         @Override
         public void onSettingContainerShowing(boolean show) {
             mModuleManager.onSettingContainerShowing(show);
+
             if (show) {
+                if(getCurrentMode() == ModePicker.MODE_SLR_CAMERA &&
+                        mBvirtualView != null && mBvirtualView.getVisibility() == View.VISIBLE){
+                    mBvirtualView.setVisibility(View.GONE);
+                }
             } else {
+                if(getCurrentMode() == ModePicker.MODE_SLR_CAMERA &&
+                        mBvirtualView != null && mBvirtualView.getVisibility() == View.GONE){
+                    mBvirtualView.setVisibility(View.VISIBLE);
+                }
+
                 if (isFaceBeautyEnable()
                         && getCurrentMode() == ModePicker.MODE_FACE_BEAUTY
                         && !mIsFromRestore) {
@@ -2094,6 +2183,7 @@ public class CameraActivity extends ActivityBase implements
             // We keep the last known orientation. So if the user first orient
             // the camera then point the camera to floor or sky, we still have
             // the correct orientation.
+
             if (orientation == ORIENTATION_UNKNOWN) {
                 Log.w(TAG,
                         "[onOrientationChanged]orientation is ORIENTATION_UNKNOWN,return.");
@@ -2108,9 +2198,9 @@ public class CameraActivity extends ActivityBase implements
 
             if (mRestoreOrientation != newOrientation) {
                 mRestoreOrientation = newOrientation;
+                setCurrentOrientation(newOrientation);
                 mModuleManager.onOrientationChanged(mRestoreOrientation);
             }
-
         }
 
         private void updateOrientation(int orientation) {
@@ -2146,6 +2236,16 @@ public class CameraActivity extends ActivityBase implements
                 notifyOrientationChanged();
             }
         }
+    }
+
+    private int mCurrentOrientation;
+
+    private void setCurrentOrientation(int currentOrientation) {
+        mCurrentOrientation = currentOrientation;
+    }
+
+    public int getCurrentOrientation(){
+        return mCurrentOrientation;
     }
 
     // / @}
@@ -2642,6 +2742,10 @@ public class CameraActivity extends ActivityBase implements
 
     public int getCameraId() {
         return mCameraDeviceCtrl.getCameraId();
+    }
+
+    public CameraDeviceCtrl getCameraDeviceCtrl() {
+        return mCameraDeviceCtrl;
     }
 
     // for PIP

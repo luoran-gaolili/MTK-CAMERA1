@@ -70,166 +70,213 @@ public class SettingDataBase {
         //        video  videopip photostereo videostereo de-noise
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_FLASH]                 = new int[]{
                 STATE_E0, STATE_R0, STATE_R0, STATE_R0, STATE_E0, STATE_E0,
-                STATE_E0, STATE_R0, STATE_R0, STATE_R0, STATE_E0};
+                STATE_E0, STATE_R0, STATE_R0, STATE_R0, STATE_E0,STATE_R0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_DUAL_CAMERA]           = new int[]{
-                STATE_E0, STATE_D0, STATE_E0, STATE_D0, STATE_D0, STATE_E0,
-                STATE_E0, STATE_E0, STATE_D0, STATE_D0, STATE_E0};
+                STATE_E0,STATE_D0, STATE_E0, STATE_D0, STATE_D0, STATE_E0,
+                STATE_E0, STATE_E0, STATE_D0, STATE_D0, STATE_E0, STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_EXPOSURE]              = new int[]{
                 STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_R0,
-                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0,STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_SCENCE_MODE]           = new int[]{
-                STATE_E0, STATE_R1, STATE_E0, STATE_R0, STATE_R0, STATE_R0,
-                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0,STATE_R1, STATE_E0, STATE_R0, STATE_R0, STATE_R0,
+                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_WHITE_BALANCE]         = new int[]{
                 STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_R0, STATE_R0,
-                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0,STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_SLOW_MOTION]           = new int[]{
-                STATE_E0, STATE_R0, STATE_R0, STATE_E0, STATE_R0, STATE_R0,
-                STATE_D0, STATE_R0, STATE_R0, STATE_R0, STATE_R0};
+                STATE_E0,STATE_E0, STATE_R0, STATE_R0, STATE_E0, STATE_R0,
+                STATE_D0, STATE_R0, STATE_R0, STATE_R0, STATE_R0,STATE_R0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_COLOR_EFFECT]          = new int[]{
-                STATE_E0, STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0,
-                STATE_E0, STATE_R0, STATE_R0, STATE_R0, STATE_R0};
+                STATE_E0,STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0,
+                STATE_E0, STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_SELF_TIMER]            = new int[]{
-                STATE_E0, STATE_E0, STATE_E0, STATE_R0, STATE_E0, STATE_R0,
-                STATE_R0, STATE_R0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0,STATE_E0, STATE_E0, STATE_R0, STATE_E0, STATE_R0,
+                STATE_R0, STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_R0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_ZSD]                   = new int[]{
-                STATE_E0, STATE_R0, STATE_R0, STATE_R0, STATE_E0, STATE_R0,
-                STATE_R0, STATE_R0, STATE_E0, STATE_R0, STATE_E0};
+                STATE_E0,STATE_R0, STATE_R0, STATE_R0, STATE_E0, STATE_R0,
+                STATE_R0, STATE_R0, STATE_E0, STATE_R0, STATE_E0, STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_RECORD_LOCATION]       = new int[]{
                 STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0,
-                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0,STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_PICTURE_RATIO]         = new int[]{
                 STATE_E0, STATE_E0, STATE_E0, STATE_D0, STATE_E0, STATE_E0,
-                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0,STATE_D0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_PICTURE_SIZE]          = new int[]{
                 STATE_E0, STATE_E0, STATE_E0, STATE_D0, STATE_E0, STATE_E0,
-                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0,STATE_D0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_ISO]                   = new int[]{
                 STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_R0,
-                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0,STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_AIS]                   = new int[]{
-                STATE_E0, STATE_R0, STATE_E0, STATE_R0, STATE_R0, STATE_R0,
-                STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0};
+                STATE_E0,STATE_R0, STATE_E0, STATE_R0, STATE_R0, STATE_R0,
+                STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_ANTI_FLICKER]          = new int[]{
-                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_R0,
-                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0,STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_R0,
+                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_VIDEO_STABLE]          = new int[]{
-                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_R0,
-                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0,STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_R0,
+                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_MICROPHONE]            = new int[]{
-                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0,
-                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0,STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0,
+                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_AUDIO_MODE]            = new int[]{
                 STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_R0,
-                STATE_E0, STATE_R0, STATE_E0, STATE_R0, STATE_E0};
+                STATE_E0, STATE_R0, STATE_E0, STATE_R0, STATE_E0,STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_VIDEO_QUALITY]         = new int[]{
-                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0,
-                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0,STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0,
+                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0};
+
  MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_SLOW_MOTION_VIDEO_QUALITY]    = new int[]{
-                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0,
-                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0,STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0,
+                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_VOICE]                 = new int[]{
-                STATE_E0, STATE_E0, STATE_E0, STATE_R0, STATE_E0, STATE_E0,
-                STATE_E0, STATE_R0, STATE_E0, STATE_R0, STATE_R0};
+                STATE_E0,STATE_E0, STATE_E0, STATE_R0, STATE_E0, STATE_E0,
+                STATE_E0, STATE_R0, STATE_E0, STATE_R0, STATE_R0, STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_3DNR]                  = new int[]{
                 STATE_E0, STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_R0,
-                STATE_E0, STATE_R0, STATE_E0, STATE_R0, STATE_E0};
+                STATE_E0, STATE_R0, STATE_E0, STATE_R0, STATE_E0,STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_SHARPNESS]             = new int[]{
-                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_E0,
-                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0,STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_E0,
+                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0};
+
         //30: image adjustment sharpness
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_HUE]                   = new int[]{
-                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_R0,
-                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0,STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_R0,
+                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_E0};
+
         //31: image adjustment hue
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_SATURATION]            = new int[]{
                 STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_R0,
-                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0,STATE_E0};
+
         //32: image adjustment saturation
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_BRIGHTNESS]            = new int[]{
                 STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_R0,
-                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0,STATE_E0};
+
         //33: image adjustment brightness
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_CONTRAST]              = new int[]{
-                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_R0,
-                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0,STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_R0,
+                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_E0};
+
         //34: image adjustment contrast
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_FAST_AF]               = new int[]{
                 STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_R0,
-                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_DISTANCE]              = new int[]{
                 STATE_E0, STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_E0,
-                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0,STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_CAMERA_MODE]           = new int[]{
                 STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0,
-                STATE_R1, STATE_R1, STATE_R0, STATE_R1, STATE_R0};
+                STATE_R1, STATE_R1, STATE_R0, STATE_R1, STATE_R0,STATE_R0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_CAPTURE_MODE]          = new int[]{
-                STATE_R0, STATE_R0, STATE_R2, STATE_R6, STATE_R3, STATE_R0,
-                STATE_R0, STATE_R0, STATE_E0, STATE_R0, STATE_E0};
+                STATE_R0,STATE_R0, STATE_R2, STATE_R6, STATE_R3, STATE_R0,
+                STATE_R0, STATE_R0, STATE_E0, STATE_R0, STATE_E0, STATE_R0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_CONTINUOUS_NUM]        = new int[]{
                 STATE_R0, STATE_D0, STATE_R0, STATE_R0, STATE_R0, STATE_R0,
-                STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0};
+                STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0,STATE_R0};
         //23: initial continuous number,
         //it is different from 6 for here is real number, 6 is enable/disable state.
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_RECORDING_HINT]        = new int[]{
-                STATE_R0, STATE_E0, STATE_R0, STATE_R0, STATE_R0, STATE_R0,
-                STATE_R1, STATE_R0, STATE_R0, STATE_R1, STATE_R0};
+                STATE_R0,STATE_E0, STATE_R0, STATE_R0, STATE_R0, STATE_R0,
+                STATE_R1, STATE_R0, STATE_R0, STATE_R1, STATE_R0, STATE_R0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_JPEG_QUALITY]          = new int[]{
-                STATE_R0, STATE_R0, STATE_R0, STATE_R1, STATE_R0, STATE_R0,
-                STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0};
+                STATE_R0, STATE_R0, STATE_R1, STATE_R0, STATE_R0, STATE_R0,
+                STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0,STATE_R0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_FACEBEAUTY_SMOOTH]     = new int[]{
                 STATE_E0, STATE_D0, STATE_E0, STATE_D0, STATE_D0, STATE_D0,
-                STATE_D0, STATE_D0, STATE_D0, STATE_D0, STATE_D0};
+                STATE_D0, STATE_D0, STATE_D0, STATE_D0, STATE_D0,STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_FACEBEAUTY_SKIN_COLOR] = new int[]{
-                STATE_E0, STATE_D0, STATE_E0, STATE_D0, STATE_D0, STATE_D0,
-                STATE_D0, STATE_D0, STATE_D0, STATE_D0, STATE_D0};
+                STATE_E0,STATE_D0, STATE_E0, STATE_D0, STATE_D0, STATE_D0,
+                STATE_D0, STATE_D0, STATE_D0, STATE_D0, STATE_D0, STATE_E0};
+
         //48: face beauty skin-color
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_FACEBEAUTY_SHARP]      = new int[]{
-                STATE_E0, STATE_D0, STATE_E0, STATE_D0, STATE_D0, STATE_D0,
-                STATE_D0, STATE_D0, STATE_D0, STATE_D0, STATE_D0};
+                STATE_E0,STATE_D0, STATE_E0, STATE_D0, STATE_D0, STATE_D0,
+                STATE_D0, STATE_D0, STATE_D0, STATE_D0, STATE_D0, STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_FACEBEAUTY_SLIM]       = new int[]{
-                STATE_E0, STATE_D0, STATE_E0, STATE_D0, STATE_D0, STATE_D0,
-                STATE_D0, STATE_D0, STATE_D0, STATE_D0, STATE_D0};
+                STATE_E0,STATE_D0, STATE_E0, STATE_D0, STATE_D0, STATE_D0,
+                STATE_D0, STATE_D0, STATE_D0, STATE_D0, STATE_D0, STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_FACEBEAUTY_BIG_EYES]   = new int[]{
-                STATE_E0, STATE_D0, STATE_E0, STATE_D0, STATE_D0, STATE_D0,
-                STATE_D0, STATE_D0, STATE_D0, STATE_D0, STATE_D0};
+                STATE_E0,STATE_D0, STATE_E0, STATE_D0, STATE_D0, STATE_D0,
+                STATE_D0, STATE_D0, STATE_D0, STATE_D0, STATE_D0, STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_CAMERA_FACE_DETECT]    = new int[]{
-                STATE_E0, STATE_E0, STATE_R1, STATE_R0, STATE_R1, STATE_R0,
-                STATE_R0, STATE_R0, STATE_E0, STATE_E0, STATE_E0};
+                STATE_E0,STATE_E0, STATE_R1, STATE_R0, STATE_R1, STATE_R0,
+                STATE_R0, STATE_R0, STATE_E0, STATE_E0, STATE_E0, STATE_R0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_MULTI_FACE_MODE]       = new int[]{
-                STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_D0,
-                STATE_E0, STATE_D0, STATE_D0, STATE_D0, STATE_D0};
+                STATE_E0,STATE_E0, STATE_E0, STATE_E0, STATE_E0, STATE_D0,
+                STATE_E0, STATE_D0, STATE_D0, STATE_D0, STATE_D0, STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_HDR]                   = new int[]{
-                STATE_E0, STATE_E0, STATE_R0, STATE_R0, STATE_R0, STATE_R0,
-                STATE_E0, STATE_R0, STATE_R0, STATE_R0, STATE_R0};
+                STATE_E0,STATE_E0, STATE_R0, STATE_R0, STATE_R0, STATE_R0,
+                STATE_E0, STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_ASD]                   = new int[]{
-                STATE_E0, STATE_R0, STATE_R0, STATE_R0, STATE_E0, STATE_R0,
-                STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0};
+                STATE_E0,STATE_R0, STATE_R0, STATE_R0, STATE_E0, STATE_R0,
+                STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_E0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_MUTE_RECORDING_SOUND]  = new int[]{
-                STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0,
-                STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0};
+                STATE_R0,STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0,
+                STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0, STATE_R0};
+
         //54 enable recording sound
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_HEARTBEAT_MONITOR]     = new int[]{
-                STATE_R0, STATE_R1, STATE_R1, STATE_R1, STATE_R1, STATE_R1,
-                STATE_R1, STATE_R1, STATE_R1, STATE_R1, STATE_R0};
+                STATE_R0,STATE_R1, STATE_R1, STATE_R1, STATE_R1, STATE_R1,
+                STATE_R1, STATE_R1, STATE_R1, STATE_R1, STATE_R0, STATE_R0};
+
         MATRIX_RESTRICTION_STATE[SettingConstants.ROW_SETTING_DNG]                   = new int[]{
-                STATE_E0, STATE_R0, STATE_R0, STATE_R0, STATE_E0, STATE_R0,
-                STATE_R0, STATE_R0, STATE_E0, STATE_R0, STATE_R0};
+                STATE_E0,STATE_R0, STATE_R0, STATE_R0, STATE_E0, STATE_R0,
+                STATE_R0, STATE_R0, STATE_E0, STATE_R0, STATE_R0 ,STATE_E0};
     }
 
     private static final int[] RESTRCTION_SETTING_INDEX = new int[] {
         SettingConstants.ROW_SETTING_NORMAL,
-            SettingConstants.ROW_SETTING_SLR,
+
         SettingConstants.ROW_SETTING_HDR,
         SettingConstants.ROW_SETTING_FACE_BEAUTY,
         SettingConstants.ROW_SETTING_PANORAMA,
         SettingConstants.ROW_SETTING_ASD,
         SettingConstants.ROW_SETTING_PHOTO_PIP,
+
         SettingConstants.ROW_SETTING_VIDEO,
         SettingConstants.ROW_SETTING_VIDEO_PIP,
         SettingConstants.ROW_SETTING_REFOCUS,
         SettingConstants.ROW_SETTING_VIDEO_STEREO,
         SettingConstants.ROW_SETTING_PHOTO_STEREO,
+            SettingConstants.ROW_SETTING_SLR,
+
     };
 
     private static final String[][] RESET_STATE_VALUE =
@@ -552,6 +599,20 @@ public class SettingDataBase {
                  new Restriction(SettingConstants.ROW_SETTING_HDR)
                        .setEnable(false)
                        .setValues("off")),
+
+
+            new Restriction(SettingConstants.ROW_SETTING_FAST_AF)
+                    .setValues("on")
+                    .setRestrictions(
+                    new Restriction(SettingConstants.ROW_SETTING_PICTURE_RATIO)
+                            .setEnable(true)
+                            .setValues(PICTURE_RATIO_16_9),
+                    new Restriction(SettingConstants.ROW_SETTING_SLOW_MOTION)
+                            .setEnable(false)
+                            .setValues("off"),
+                    new Restriction(SettingConstants.ROW_SETTING_HDR)
+                            .setEnable(false)
+                            .setValues("off")),
 
        new Restriction(SettingConstants.ROW_SETTING_DISTANCE)
                 .setValues("on")

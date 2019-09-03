@@ -29,9 +29,9 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.android.camera.Log;
-import com.mediatek.camera.R;
 import com.android.camera.SettingUtils;
 
+import com.mediatek.camera.R;
 import com.mediatek.camera.setting.SettingConstants;
 import com.mediatek.camera.setting.preference.ListPreference;
 
@@ -131,9 +131,11 @@ public class SettingListLayout extends FrameLayout implements InLineSettingItem.
                 view.setId(R.id.restore_default);
             }
 
+
             view.initialize(pref); // no init for restore one
             view.setSettingChangedListener(SettingListLayout.this);
             SettingUtils.setEnabledState(convertView, (pref == null ? true : pref.isEnabled()));
+
             return view;
         }
     }
@@ -226,7 +228,7 @@ public class SettingListLayout extends FrameLayout implements InLineSettingItem.
 
     @Override
     public void onStereoCameraSettingChanged(InLineSettingItem item, ListPreference preference,
-            int index, boolean showing) {
+                                             int index, boolean showing) {
         if (mLastItem != null && mLastItem != item) {
             mLastItem.collapseChild();
         }
@@ -234,6 +236,7 @@ public class SettingListLayout extends FrameLayout implements InLineSettingItem.
             mListener.onStereoCameraSettingChanged(this, preference, index, showing);
         }
     }
+
     public boolean collapseChild() {
         boolean collapse = false;
         if (mLastItem != null) {
@@ -245,7 +248,7 @@ public class SettingListLayout extends FrameLayout implements InLineSettingItem.
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
-            int totalItemCount) {
+                         int totalItemCount) {
         Log.d(TAG, "onScroll(" + firstVisibleItem + ", " + visibleItemCount + ", " + totalItemCount
                 + ")");
     }

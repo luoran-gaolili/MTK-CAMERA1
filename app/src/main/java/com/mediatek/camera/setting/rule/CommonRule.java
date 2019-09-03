@@ -37,6 +37,7 @@
 package com.mediatek.camera.setting.rule;
 
 import android.hardware.Camera.Size;
+import android.util.Log;
 
 import com.mediatek.camera.ISettingRule;
 import com.mediatek.camera.platform.ICameraDeviceManager;
@@ -49,7 +50,6 @@ import com.mediatek.camera.setting.SettingItem;
 import com.mediatek.camera.setting.SettingItem.Record;
 import com.mediatek.camera.setting.SettingUtils;
 import com.mediatek.camera.setting.preference.ListPreference;
-import com.mediatek.camera.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;

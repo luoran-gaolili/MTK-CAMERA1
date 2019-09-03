@@ -5,11 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:splitMotionEvents="false">
+
+
     <FrameLayout android:id="@+id/camera_surfaceview_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center">
     </FrameLayout>
+
     <FrameLayout android:id="@+id/intentcover"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,6 +23,13 @@
             android:layout_height="match_parent"
             />
     </FrameLayout>
+
+    <ViewStub
+        android:id="@+id/freeme_preview_after_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/freeme_preview_after_layout" />
+
     <FrameLayout android:id="@+id/camera_app_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,4 +42,5 @@
         <include layout="@layout/preview_frame"/>
         <include layout="@layout/view_layers"/>
     </FrameLayout>
+
 </FrameLayout>

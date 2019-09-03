@@ -116,6 +116,8 @@ public class CameraManager {
     private static final int SET_STEREO_CAMERA_WARNING_CALLBACK = 126;
     private static final int SET_STEREO_CAMERA_DISTANCE_CALLBACK = 128;
     private static final int SET_ONE_SHOT_PREVIEW_CALLBACK = 129;
+
+    private static final int SET_PREVIEW_CALLBACK = 130;
     private static final int SET_RAW_IMAGE_CALLBACK = 132;
     private Handler mCameraHandler;
     private CameraProxy mCameraProxy;
@@ -457,6 +459,9 @@ public class CameraManager {
                     break; // no need to call mSig.open()
                 case SET_ONE_SHOT_PREVIEW_CALLBACK:
                     mCamera.setOneShotPreviewCallback((PreviewCallback) msg.obj);
+                    break;
+                case SET_PREVIEW_CALLBACK:
+                    mCamera.setPreviewCallback((PreviewCallback) msg.obj);
                     break;
                 default:
                     throw new RuntimeException("Invalid CameraProxy message=" + msg.what);
@@ -850,6 +855,10 @@ public class CameraManager {
 
         public void setOneShotPreviewCallback(PreviewCallback cb) {
             mCameraHandler.obtainMessage(SET_ONE_SHOT_PREVIEW_CALLBACK, cb).sendToTarget();
+        }
+
+        public void setPreviewCallback(PreviewCallback cb) {
+            mCameraHandler.obtainMessage(SET_PREVIEW_CALLBACK, cb).sendToTarget();
         }
 
         // /M: lock parameter for ConcurrentModificationException. @{

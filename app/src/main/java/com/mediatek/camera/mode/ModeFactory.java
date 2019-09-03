@@ -44,10 +44,10 @@ import com.mediatek.camera.mode.facebeauty.FaceBeautyMode;
 import com.mediatek.camera.mode.panorama.PanoramaMode;
 import com.mediatek.camera.mode.pip.PipPhotoMode;
 import com.mediatek.camera.mode.pip.PipVideoMode;
+import com.mediatek.camera.mode.slr.SlrPhotoMode;
 import com.mediatek.camera.mode.stereocamera.StereoCameraMode;
 import com.mediatek.camera.mode.stereocamera.StereoPhotoMode;
 import com.mediatek.camera.mode.stereocamera.StereoVideoMode;
-import com.mediatek.camera.util.Log;
 
 public class ModeFactory {
     private static final String TAG = "ModeFactory";
@@ -71,37 +71,37 @@ public class ModeFactory {
 
     public ICameraMode createMode(CameraModeType type, ICameraContext cameraContext) {
         switch (type) {
-        case EXT_MODE_PHOTO:
-            return new PhotoMode(cameraContext);
-
-            case EXT_MODE_SLR:
+            case EXT_MODE_PHOTO:
                 return new PhotoMode(cameraContext);
 
-        case EXT_MODE_FACE_BEAUTY:
-            return new FaceBeautyMode(cameraContext);
+            case EXT_MODE_SLR:
+                return new SlrPhotoMode(cameraContext);
 
-        case EXT_MODE_PANORAMA:
-            return new PanoramaMode(cameraContext);
+            case EXT_MODE_FACE_BEAUTY:
+                return new FaceBeautyMode(cameraContext);
 
-        case EXT_MODE_VIDEO:
-            return new VideoMode(cameraContext);
+            case EXT_MODE_PANORAMA:
+                return new PanoramaMode(cameraContext);
 
-        case EXT_MODE_PHOTO_PIP:
-            return new PipPhotoMode(cameraContext);
+            case EXT_MODE_VIDEO:
+                return new VideoMode(cameraContext);
 
-        case EXT_MODE_VIDEO_PIP:
-            return new PipVideoMode(cameraContext);
+            case EXT_MODE_PHOTO_PIP:
+                return new PipPhotoMode(cameraContext);
 
-        case EXT_MODE_STEREO_CAMERA:
-            return new StereoCameraMode(cameraContext);
+            case EXT_MODE_VIDEO_PIP:
+                return new PipVideoMode(cameraContext);
 
-        case EXT_MODE_PHOTO_STEREO:
-            return new StereoPhotoMode(cameraContext);
+            case EXT_MODE_STEREO_CAMERA:
+                return new StereoCameraMode(cameraContext);
 
-        case EXT_MODE_VIDEO_STEREO:
-            return new StereoVideoMode(cameraContext);
-        default:
-            return new DummyMode();
+            case EXT_MODE_PHOTO_STEREO:
+                return new StereoPhotoMode(cameraContext);
+
+            case EXT_MODE_VIDEO_STEREO:
+                return new StereoVideoMode(cameraContext);
+            default:
+                return new DummyMode();
         }
     }
 

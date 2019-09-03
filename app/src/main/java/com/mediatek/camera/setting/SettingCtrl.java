@@ -40,6 +40,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.android.camera.CameraActivity;
+import com.android.camera.manager.ModePicker;
 import com.mediatek.camera.ICameraContext;
 import com.mediatek.camera.ISettingCtrl;
 import com.mediatek.camera.ISettingRule;
@@ -67,7 +69,7 @@ public class SettingCtrl implements ISettingCtrl {
     private boolean mIsInitializedSettings = false;
 
     private ISettingRule[][] mRuleMatrix
-        = new ISettingRule[SettingConstants.SETTING_COUNT][SettingConstants.SETTING_COUNT];
+            = new ISettingRule[SettingConstants.SETTING_COUNT][SettingConstants.SETTING_COUNT];
 
     private ICameraContext mICameraContext;
     private ICameraDeviceManager mICameraDeviceManager;
@@ -89,7 +91,7 @@ public class SettingCtrl implements ISettingCtrl {
 
     @Override
     public void initializeSettings(int preferenceRes, SharedPreferences globalPref,
-            SharedPreferences localPref) {
+                                   SharedPreferences localPref) {
 //        Log.d(TAG, "[initializeSettings]...");
         mGlobalPref = globalPref;
         mLocalPrefs.put(mICameraDeviceManager.getCurrentCameraId(), localPref);
@@ -147,7 +149,7 @@ public class SettingCtrl implements ISettingCtrl {
     }
 
     private void onSettingChanged(Parameters parameters, int currentCameraId, String key,
-            String value) {
+                                  String value) {
         int settingId = SettingConstants.getSettingId(key);
         SettingItem setting = getSetting(settingId);
         String lastValue = setting.getLastValue();
@@ -181,21 +183,38 @@ public class SettingCtrl implements ISettingCtrl {
 
         if (!isExecutedByRule) {
             if (SettingConstants.KEY_PICTURE_RATIO.equals(key)) {
-                SettingUtils.setPreviewSize(mContext, parameters, value);
+                CameraActivity cameraActivity = null;
+                if(mContext instanceof CameraActivity){
+                    cameraActivity = (CameraActivity) mContext;
+                }
+                if (cameraActivity != null && ModePicker.MODE_SLR_CAMERA != cameraActivity.getCurrentMode()) {
+                    SettingUtils.setPreviewSize(mContext, parameters, value);
+                }
             } else {
                 int settingType = setting.getType();
                 switch (settingType) {
-                case SettingConstants.ONLY_IN_PARAMETER:
-                case SettingConstants.BOTH_IN_PARAMETER_AND_PREFERENCE:
-                    if (setting.isEnable()) {
-                        ParametersHelper
-                                .setParametersValue(parameters, currentCameraId, key, value);
-                    } else {
-                        Log.d(TAG, "[onSettingChanged], setting is disable, key:" + key);
-                    }
-                    break;
-                default:
-                    break;
+                    case SettingConstants.ONLY_IN_PARAMETER:
+                    case SettingConstants.BOTH_IN_PARAMETER_AND_PREFERENCE:
+                        if (setting.isEnable()) {
+                            CameraActivity cameraActivity = null;
+                            if (mContext instanceof CameraActivity) {
+                                cameraActivity = (CameraActivity) mContext;
+                            }
+
+                            if (cameraActivity != null &&
+                                    cameraActivity.getCurrentMode() == ModePicker.MODE_SLR_CAMERA) {
+                                if (SettingConstants.KEY_PICTURE_SIZE.equals(key)) {
+                                    break;
+                                }
+                            }
+                            ParametersHelper
+                                    .setParametersValue(parameters, currentCameraId, key, value);
+                        } else {
+                            Log.d(TAG, "[onSettingChanged], setting is disable, key:" + key);
+                        }
+                        break;
+                    default:
+                        break;
                 }
             }
         }
@@ -376,10 +395,10 @@ public class SettingCtrl implements ISettingCtrl {
         resetSettings(mGlobalPref);
         int count = mICameraDeviceManager.getNumberOfCameras();
         for (int i = 0; i < count; i++) {
-             SharedPreferences sharedPreference = mLocalPrefs.get(i);
-             if (sharedPreference != null) {
-                 resetSettings(sharedPreference);
-             }
+            SharedPreferences sharedPreference = mLocalPrefs.get(i);
+            if (sharedPreference != null) {
+                resetSettings(sharedPreference);
+            }
         }
         long stop = System.currentTimeMillis();
 //        Log.d(TAG, "resetSettings() consume:" + (stop - start));
@@ -568,10 +587,8 @@ public class SettingCtrl implements ISettingCtrl {
     /**
      * Query rules from rule matrix.
      *
-     * @param key
-     *            use to query rule in some row or column
-     * @param queryAxis
-     *            query orientation
+     * @param key       use to query rule in some row or column
+     * @param queryAxis query orientation
      * @return list of rules.
      */
     private List<ISettingRule> queryRules(String key, int queryAxis) {

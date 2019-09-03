@@ -262,4 +262,9 @@ public class AndroidCamera implements ICamera {
     public void setOneShotPreviewCallback(PreviewCallback cb) {
         mCamera.setOneShotPreviewCallback(cb);
     }
+
+    @Override
+    public void setPreviewCallback(PreviewCallback cb) {
+        mCamera.setPreviewCallback(cb);
+    }
 }

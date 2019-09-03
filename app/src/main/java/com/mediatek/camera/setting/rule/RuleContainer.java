@@ -36,7 +36,11 @@
  */
 package com.mediatek.camera.setting.rule;
 
+import android.app.Activity;
 import android.media.CamcorderProfile;
+
+import com.android.camera.CameraActivity;
+import com.android.camera.manager.ModePicker;
 import com.mediatek.camera.ICameraContext;
 import com.mediatek.camera.ISettingCtrl;
 import com.mediatek.camera.ISettingRule;
@@ -287,13 +291,17 @@ public class RuleContainer {
             ICameraDevice cameraDevice = mICameraDeviceManager.getCameraDevice(cameraId);
             Parameters parameters = cameraDevice.getParameters();
 
+            CameraActivity cameraActivity = null;
+            if(mICameraContext.getActivity() instanceof CameraActivity){
+                cameraActivity = (CameraActivity )mICameraContext.getActivity();
+            }
+
             SettingItem pictureRatioSetting = mISettingCtrl
                     .getSetting(SettingConstants.KEY_PICTURE_RATIO);
             String currentPictureRatio = pictureRatioSetting.getValue();
             SettingItem pictureSizeSetting = mISettingCtrl
                     .getSetting(SettingConstants.KEY_PICTURE_SIZE);
             String currentPictureSize = pictureSizeSetting.getValue();
-
             List<String> supportedPictureSizes = SettingUtils
                     .buildSupportedPictureSizeByRatio(parameters, currentPictureRatio);
             SettingUtils.filterLimitResolution(supportedPictureSizes);
@@ -314,7 +322,9 @@ public class RuleContainer {
                 overrideValue = SettingUtils.buildEnableList(
                         supportedPictureSizes.toArray(values), currentPictureSize);
                 if (pictureSizePref != null) {
-                    pictureSizePref.setEnabled(true);
+                    if (cameraActivity != null && cameraActivity.getCurrentMode() != ModePicker.MODE_SLR_CAMERA) {
+                        pictureSizePref.setEnabled(true);
+                    }
                 }
             }
             if (pictureSizePref != null) {
@@ -326,8 +336,10 @@ public class RuleContainer {
             }
             Log.d(TAG, "[PictureRatioSizeRule], set picture size, value:" + currentPictureSize +
                     ", overrideValue:" + overrideValue);
-            ParametersHelper.setParametersValue(parameters, cameraId,
-                    SettingConstants.KEY_PICTURE_SIZE, currentPictureSize);
+            if (cameraActivity != null && cameraActivity.getCurrentMode() != ModePicker.MODE_SLR_CAMERA) {
+                ParametersHelper.setParametersValue(parameters, cameraId,
+                        SettingConstants.KEY_PICTURE_SIZE, currentPictureSize);
+            }
         }
 
         @Override

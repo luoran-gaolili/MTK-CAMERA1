@@ -40,6 +40,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Camera;
 import android.graphics.Point;
 import android.hardware.Camera.Size;
 import android.media.CamcorderProfile;
@@ -48,6 +49,8 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 //TODO:CamcorderProfileEx
+import com.android.camera.CameraActivity;
+import com.android.camera.manager.ModePicker;
 import com.mediatek.camera.ISettingCtrl;
 import com.mediatek.camera.platform.Parameters;
 import com.mediatek.camera.setting.preference.ListPreference;

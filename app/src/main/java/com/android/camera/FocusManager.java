@@ -422,7 +422,9 @@ public class FocusManager implements CameraActivity.OnOrientationListener,
             return;
         }
         if (moving) {
-            mFocusIndicatorRotateLayout.showStart();
+            if(mContext.getCurrentMode() != ModePicker.MODE_SLR_CAMERA) {
+                mFocusIndicatorRotateLayout.showStart();
+            }
         } else {
             mFocusIndicatorRotateLayout.showSuccess(true);
         }
@@ -667,10 +669,14 @@ public class FocusManager implements CameraActivity.OnOrientationListener,
                 // Users touch on the preview and the indicator represents the
                 // metering area. Either focus area is not supported or
                 // autoFocus call is not required.
-                focusIndicator.showStart();
+                if(mContext.getCurrentMode() != ModePicker.MODE_SLR_CAMERA) {
+                    focusIndicator.showStart();
+                }
             }
         } else if (mState == STATE_FOCUSING || mState == STATE_FOCUSING_SNAP_ON_FINISH) {
-            focusIndicator.showStart();
+            if(mContext.getCurrentMode() != ModePicker.MODE_SLR_CAMERA) {
+                focusIndicator.showStart();
+            }
         } else {
             if (mState == STATE_SUCCESS) {
                 if (mParameters != null

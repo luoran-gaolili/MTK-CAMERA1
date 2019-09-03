@@ -36,7 +36,10 @@
  */
 package com.android.camera.bridge;
 
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.graphics.ImageFormat;
+import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
@@ -46,10 +49,15 @@ import android.hardware.Camera.PreviewCallback;
 import android.hardware.Camera.Size;
 import android.media.CamcorderProfile;
 import android.os.ConditionVariable;
-import android.os.HandlerThread;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicYuvToRGB;
+import android.renderscript.Type;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
@@ -65,7 +73,6 @@ import com.android.camera.FocusManager;
 import com.android.camera.Log;
 import com.android.camera.ModeChecker;
 import com.android.camera.ParametersHelper;
-import com.mediatek.camera.R;
 import com.android.camera.SaveRequest;
 import com.android.camera.Storage;
 import com.android.camera.Util;
@@ -75,15 +82,15 @@ import com.android.camera.ui.FrameView;
 import com.android.camera.ui.PreviewFrameLayout;
 import com.android.camera.ui.PreviewSurfaceView;
 import com.android.camera.ui.RotateLayout;
-
 import com.mediatek.camera.ISettingCtrl;
 import com.mediatek.camera.ModuleManager;
-import com.mediatek.camera.debug.LogHelper;
-import com.mediatek.camera.util.CameraPerformanceTracker;
+import com.mediatek.camera.R;
+import com.mediatek.camera.mode.slr.PreviewAreaChangeListener;
 import com.mediatek.camera.platform.ICameraAppUi.ViewState;
 import com.mediatek.camera.platform.IFocusManager;
 import com.mediatek.camera.setting.SettingConstants;
 import com.mediatek.camera.setting.SettingUtils;
+import com.mediatek.camera.util.CameraPerformanceTracker;
 import com.mediatek.camera.util.ReflectUtil;
 
 import junit.framework.Assert;
@@ -136,7 +143,7 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
     private SurfaceTexture mSurfaceTexture;
     private SurfaceTexture mTopCamSurfaceTexture;
     private PreviewSurfaceView mSurfaceView;
-    private View               mSurfaceViewCover;
+    private View mSurfaceViewCover;
     private FrameLayout mCurSurfaceViewLayout;
     private FrameLayout mLastSurfaceViewLayout;
     private CameraStartUpThread mCameraStartUpThread;
@@ -173,6 +180,10 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
         STATE_CAMERA_CLOSED, STATE_OPENING_CAMERA, STATE_CAMERA_OPENED
     }
 
+    private RenderScript mRenderScript;
+    private ScriptIntrinsicYuvToRGB mScriptIntrinsicYuvToRGB;
+
+    @SuppressLint("NewApi")
     public CameraDeviceCtrl(CameraActivity activity, ComboPreferences preferences) {
         mCameraActivity = activity;
         mPreferences = preferences;
@@ -183,6 +194,9 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
         HandlerThread ht = new HandlerThread("Camera Handler Thread");
         ht.start();
         mCameraHandler = new CameraHandler(ht.getLooper());
+        rs = RenderScript.create(mCameraActivity);
+        mRenderScript = RenderScript.create(mCameraActivity);
+        mScriptIntrinsicYuvToRGB = ScriptIntrinsicYuvToRGB.create(mRenderScript, Element.U8_4(mRenderScript));
     }
 
     @Override
@@ -218,7 +232,7 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
 //         Log.d(TAG, "surfaceDestroyed, mSurfaceHolder = " + holder);
-         notifySurfaceViewDestroy(holder);
+        notifySurfaceViewDestroy(holder);
     }
 
     public void setModuleManager(ModuleManager manager) {
@@ -257,6 +271,9 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
         releaseSurfaceTexture();
         notifySurfaceViewDestroy(mSurfaceView.getHolder());
         // close camera sync in stereo mode.
+        if (mCameraActivity.getCurrentMode() == ModePicker.MODE_SLR_CAMERA) {
+            mCurCameraDevice.setPreviewCallback(null);
+        }
         if (mCameraActor.getMode() == ModePicker.MODE_STEREO_CAMERA
                 || mCameraActor.getMode() == ModePicker.MODE_VIDEO_STEREO) {
             closeCamera(false);
@@ -296,6 +313,8 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
         if (mCameraHandler != null) {
             mCameraHandler.getLooper().quit();
         }
+        mRenderScript.destroy();
+        mScriptIntrinsicYuvToRGB.destroy();
     }
 
     public void openCamera() {
@@ -385,8 +404,9 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
 
     /**
      * Close Camera (e.g. switch camera/exit camera).
+     *
      * @param isExitAp if true, call native method asynchronously
-     *  when exit camera.
+     *                 when exit camera.
      */
     public void closeCamera(boolean isExitAp) {
         Log.d(TAG, "[closeCamera] cameraState:" + getCameraState()
@@ -418,6 +438,7 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
     public CameraHolder getCameraHolder() {
         return CameraHolder.instance();
     }
+
     public void onModeChanged(boolean isNeedRestart) {
         Log.d(TAG, "[onModeChanged] isNeedRestart:" + isNeedRestart + ",camera is opened : "
                 + isCameraOpened());
@@ -460,7 +481,7 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
             }
         }
         if (getCameraState() == CameraState.STATE_OPENING_CAMERA) {
-            if (isPreviewRatioChanged && !mIsFirstOpenCamera  && !mIsWaitForStartUpThread) {
+            if (isPreviewRatioChanged && !mIsFirstOpenCamera && !mIsWaitForStartUpThread) {
                 //switch surface view in Ui thread
                 //delay 5ms, be sure pause thread before resume thread
                 Message msg = mMainHandler.obtainMessage(MSG_PREPARE_SURFACE_VIEW, true);
@@ -646,6 +667,7 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
     public boolean isFirstStartUp() {
         return mIsFirstStartUp;
     }
+
     public int getDisplayOrientation() {
         return mCurCameraDevice.getDisplayOrientation();
     }
@@ -735,7 +757,7 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
 //        Log.d(TAG, "[hideRootCover]");
         mSurfaceViewCover = mCameraActivity.findViewById(R.id.camera_cover);
         if (mSurfaceViewCover != null &&
-            mSurfaceViewCover.getVisibility() != View.INVISIBLE) {
+                mSurfaceViewCover.getVisibility() != View.INVISIBLE) {
             mSurfaceViewCover.setVisibility(View.INVISIBLE);
         }
     }
@@ -857,7 +879,7 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
     }
 
     private void prepareParameter(boolean needRestart, boolean isPreviewRatioChanged,
-            final boolean isPreviewSizeChanged) {
+                                  final boolean isPreviewSizeChanged) {
         final boolean isDeviceUseSurfaceView = mModuleManager.isDeviceUseSurfaceView();
         final boolean isDisplayUseSurfaceView = mModuleManager.isDisplayUseSurfaceView();
         final boolean isNeedDualCamera = mModuleManager.isNeedDualCamera();
@@ -885,7 +907,7 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
         mCurCameraDevice.setJpegRotation(mOrientation);
 
         mCameraAppUi.setZoomParameter();
-        mCurCameraDevice.setPreviewFormat(ImageFormat.YV12);
+        mCurCameraDevice.setPreviewFormat(ImageFormat.NV21);
         // native will change the parameters to default values if scene mode change
         // but the parameters of default maybe not ap want
         // so should call twice applyParametersToServer
@@ -948,7 +970,7 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
     }
 
     private void switchPreview(boolean isDeviceUseSurfaceView, boolean isDisplayUseSurfaceView,
-            boolean isNeedDualeCamera) {
+                               boolean isNeedDualeCamera) {
 //        Log.d(TAG, "switchPreview");
         Size size = mCurCameraDevice.getPreviewSize();
         updatePreviewBufferSize(size);
@@ -1027,7 +1049,7 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
                 (PreviewSurfaceView) mCurSurfaceViewLayout.findViewById(
                         R.id.camera_preview);
 
-        mSurfaceView.addOnLayoutChangeListener(mOnLayoutChangeCallback);
+
         mSurfaceView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -1038,6 +1060,7 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
         SurfaceHolder surfaceHolder = mSurfaceView.getHolder();
         surfaceHolder.addCallback(this);
         surfaceViewRoot.addView(mCurSurfaceViewLayout);
+        mSurfaceView.addOnLayoutChangeListener(mOnLayoutChangeCallback);
     }
 
     protected RectF mPreviewArea = new RectF();
@@ -1047,22 +1070,17 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
         public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
                                    int oldTop, int oldRight, int oldBottom) {
             mPreviewArea.set(left, top, right, bottom);
-
-            android.util.Log.d("LUORAN","onLayoutChange");
-            // This method can be called during layout pass. We post a Runnable so
-            // that the callbacks won't happen during the layout pass.
-           /* mSurfaceView.post(new Runnable() {
-                @Override
-                public void run() {
-                    notifyPreviewAreaChanged();
-                }
-            });
-            if (mOnLayoutChangeListener != null) {
-                mOnLayoutChangeListener.onLayoutChange(v, left, top, right, bottom,
-                        oldLeft, oldTop, oldRight, oldBottom);
-            }*/
+            if (mPreviewChangeListener != null) {
+                mPreviewChangeListener.onPreviewAreaChanged(mPreviewArea);
+            }
         }
     };
+
+    PreviewAreaChangeListener mPreviewChangeListener;
+
+    public void setPreviewChangeListener(PreviewAreaChangeListener previewAreaChangeListener) {
+        mPreviewChangeListener = previewAreaChangeListener;
+    }
 
     public void unInitializeFocusManager() {
         if (mFocusManager != null) {
@@ -1086,48 +1104,48 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
         public void handleMessage(Message msg) {
             Log.d(TAG, "[MainHandler.handleMessage] msg:" + msg.what);
             switch (msg.what) {
-            case MSG_OPEN_CAMERA_FAIL:
-                mCameraActor.onCameraOpenFailed();
-                Util.showErrorAndFinish(mCameraActivity, R.string.cannot_connect_camera_new);
-                mCameraActivity.onCameraOpenFailed();
-                break;
-            case MSG_OPEN_CAMERA_DISABLED:
-                mCameraActor.onCameraDisabled();
-                Util.showErrorAndFinish(mCameraActivity, R.string.camera_disabled);
-                mCameraActivity.onCameraOpenFailed();
-                break;
+                case MSG_OPEN_CAMERA_FAIL:
+                    mCameraActor.onCameraOpenFailed();
+                    Util.showErrorAndFinish(mCameraActivity, R.string.cannot_connect_camera_new);
+                    mCameraActivity.onCameraOpenFailed();
+                    break;
+                case MSG_OPEN_CAMERA_DISABLED:
+                    mCameraActor.onCameraDisabled();
+                    Util.showErrorAndFinish(mCameraActivity, R.string.camera_disabled);
+                    mCameraActivity.onCameraOpenFailed();
+                    break;
 
-            case MSG_CAMERA_PREFERENCE_READY:
-                mCameraActivity.onCameraPreferenceReady();
-                break;
+                case MSG_CAMERA_PREFERENCE_READY:
+                    mCameraActivity.onCameraPreferenceReady();
+                    break;
 
-            case MSG_CAMERA_PARAMETERS_READY:
-                mCameraActivity.onCameraParametersReady();
-                break;
+                case MSG_CAMERA_PARAMETERS_READY:
+                    mCameraActivity.onCameraParametersReady();
+                    break;
 
-            case MSG_CAMERA_PREVIEW_DONE:
-                hideRootCover();
-                break;
-            case MSG_REMOVE_PREVIEW_COVER:
-                hideRootCover();
-                break;
+                case MSG_CAMERA_PREVIEW_DONE:
+                    hideRootCover();
+                    break;
+                case MSG_REMOVE_PREVIEW_COVER:
+                    hideRootCover();
+                    break;
 
-            case MSG_CAMERA_OPEN_DONE:
-                mCameraAppUi.refreshModeRelated();
-                mCameraAppUi.setViewState(ViewState.VIEW_STATE_CAMERA_OPENED);
-                mCameraActivity.onCameraOpenDone();
-                break;
+                case MSG_CAMERA_OPEN_DONE:
+                    mCameraAppUi.refreshModeRelated();
+                    mCameraAppUi.setViewState(ViewState.VIEW_STATE_CAMERA_OPENED);
+                    mCameraActivity.onCameraOpenDone();
+                    break;
 
-            case MSG_SET_PREVIEW_ASPECT_RATIO:
-                setPreviewFrameLayoutAspectRatio();
-                break;
+                case MSG_SET_PREVIEW_ASPECT_RATIO:
+                    setPreviewFrameLayoutAspectRatio();
+                    break;
 
-            case MSG_PREPARE_SURFACE_VIEW:
-                prepareSurfaceView((Boolean) msg.obj);
-                mCameraStartUpThread.resumeThread();
-                break;
-            default:
-                break;
+                case MSG_PREPARE_SURFACE_VIEW:
+                    prepareSurfaceView((Boolean) msg.obj);
+                    mCameraStartUpThread.resumeThread();
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -1138,6 +1156,7 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
             mSurfaceViewCover.setVisibility(View.VISIBLE);
         }
     }
+
     private void releaseRootCover() {
 //        Log.d(TAG, "[releaseRootCover]");
         if (mSurfaceViewCover != null && mSurfaceViewCover.getVisibility() != View.GONE) {
@@ -1159,7 +1178,7 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
         }
         if (focusManager.getMeteringAreaSupported() && setArea) {
             // Use the same area for focus and metering.
-           mCurCameraDevice.setMeteringAreas(focusManager.getMeteringAreas());
+            mCurCameraDevice.setMeteringAreas(focusManager.getMeteringAreas());
         }
 
         mCameraActor.handleFocus();
@@ -1236,23 +1255,25 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
         CameraHandler(Looper looper) {
             super(looper);
         }
+
         @Override
         public void handleMessage(final Message msg) {
 //            Log.d(TAG, "handleMessage msg.what = " + msg.what);
             switch (msg.what) {
-            case MSG_SET_SURFACE:
-                CameraPerformanceTracker.onEvent(TAG,
-                        CameraPerformanceTracker.NAME_SET_PREVIEW_DISP,
-                        CameraPerformanceTracker.ISBEGIN);
-                mCurCameraDevice.setPreviewDisplayAsync(mSurfaceView
-                        .getHolder());
-                CameraPerformanceTracker.onEvent(TAG,
-                        CameraPerformanceTracker.NAME_SET_PREVIEW_DISP,
-                        CameraPerformanceTracker.ISEND);
-                mSycForLaunch.open();
+                case MSG_SET_SURFACE:
+                    CameraPerformanceTracker.onEvent(TAG,
+                            CameraPerformanceTracker.NAME_SET_PREVIEW_DISP,
+                            CameraPerformanceTracker.ISBEGIN);
+                    mCurCameraDevice.setPreviewDisplayAsync(mSurfaceView
+                            .getHolder());
+                    CameraPerformanceTracker.onEvent(TAG,
+                            CameraPerformanceTracker.NAME_SET_PREVIEW_DISP,
+                            CameraPerformanceTracker.ISEND);
+                    mSycForLaunch.open();
             }
         }
     }
+
     private class CameraStartUpThread extends Thread {
 
         private volatile boolean mOpenCamera = false;
@@ -1300,7 +1321,8 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
                     ModeChecker.updateModeMatrix(mCameraActivity, mCameraId);
                     mCurCameraDevice.setDisplayOrientation(true);
                     mCurCameraDevice.setPreviewSize();
-                    // if open camera too quickly, here may be run with
+                    // if open camera too quickly, here may be
+                    // run with
                     // setCameraActor at the same time, this will make CameraStartUpThread
                     // pause forever, so we synchronize it for workaround.
                     synchronized (mCameraActorSync) {
@@ -1315,6 +1337,7 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
                     mCameraActor.onCameraOpenDone();
                     mModuleManager.onCameraOpen();
                     initializeFocusManager();
+
                     if (mCameraActivity.getCurrentMode() == ModePicker.MODE_PHOTO) {
                         mCurCameraDevice.setPhotoModeParameters(
                                 mCameraActivity.isNonePickIntent());
@@ -1387,7 +1410,7 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
                 if (mCameraActivity.getCurrentMode() == ModePicker.MODE_PHOTO) {
                     mCurCameraDevice.setPhotoModeParameters(mCameraActivity.isNonePickIntent());
                 } else if (mCameraActivity.getCurrentMode() == ModePicker.MODE_VIDEO &&
-                                              !mCameraActivity.isVideoCaptureIntent()) {
+                        !mCameraActivity.isVideoCaptureIntent()) {
                     mCurCameraDevice.getParametersExt().setCameraMode(
                             ParametersExt.CAMERA_MODE_MTK_VDO);
                 }
@@ -1576,6 +1599,10 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
         }
     }
 
+    public void setPreviewSize() {
+        mCurCameraDevice.setPreviewSize();
+    }
+
 
     private void applyFirstParameters() {
         Log.d(TAG, "applyFirstParameters");
@@ -1588,7 +1615,7 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
         mCurCameraDevice.setJpegRotation(mOrientation);
         mCameraAppUi.setZoomParameter();
         mCurCameraDevice.setDisplayOrientation(true);
-        mCurCameraDevice.setPreviewFormat(ImageFormat.YV12);
+        mCurCameraDevice.setPreviewFormat(ImageFormat.NV21);
         // Set auto focus before startPreview to improve first launch AF done quality
         applyFocusCapabilities(false);
         // Camera do not open zsd mode launched by 3rd party.
@@ -1694,7 +1721,7 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
     }
 
     private void notifySurfaceViewDestroy(SurfaceHolder holder) {
-//        Log.d(TAG, "[notifySurfaceViewDestroy]");
+//      Log.d(TAG, "[notifySurfaceViewDestroy]");
         if (mModuleManager.isDisplayUseSurfaceView()) {
             mModuleManager.notifySurfaceViewDestroyed(holder.getSurface());
         }
@@ -1711,7 +1738,144 @@ public class CameraDeviceCtrl implements SurfaceHolder.Callback {
                 intentCover.setVisibility(View.GONE);
             }
             hideRootCover();
+            if (mCameraActivity.getCurrentMode() == ModePicker.MODE_SLR_CAMERA) {
+                mCurCameraDevice.setPreviewCallback(mPreviewCallback);
+            }
+        }
+    };
+
+    private static final int mYunOrientation = 90;
+
+    private byte[] mYUVBuffer;
+
+    private PreviewCallback mPreviewCallback = new PreviewCallback() {
+
+        @SuppressLint("NewApi")
+        @Override
+        public void onPreviewFrame(byte[] mBytes, Camera camera) {
+            if (mYUVBuffer == null || (mYUVBuffer.length != mBytes.length)) {
+                mYUVBuffer = new byte[mBytes.length];
+            }
+            System.arraycopy(mBytes, 0, mYUVBuffer, 0, mBytes.length);
+            if (mCameraActivity.getBvirtualView() != null) {
+                mCameraActivity.getBvirtualView().invalidate();
+            }
+        }
+    };
+
+    private RenderScript rs;
+    private Type.Builder mYUVType, mRGBAType;
+    private Allocation mInputAllocation, mOutputAllocation;
+
+    public Bitmap getPreviewBitmap() {
+        /*if (mYUVBuffer == null || mYUVBuffer.length == 0) {
+            return null;
+        }
+        Size previewSize = mCurCameraDevice.getPreviewSize();
+        int width = previewSize.width;
+        int height = previewSize.height;
+        int cameraId = mCameraActivity.getCameraId();
+        Bitmap bitmap = null;
+        synchronized (this) {
+            ByteArrayOutputStream os = new ByteArrayOutputStream(mYUVBuffer.length);
+            YuvImage yuvImage = new YuvImage(mYUVBuffer, ImageFormat.NV21, width, height, null);
+            try {
+                yuvImage.compressToJpeg(new Rect(0, 0, width, height), 50, os);
+                Bitmap originalBitmap = BitmapFactory.decodeByteArray(os.toByteArray(), 0,
+                        os.toByteArray().length);
+                Matrix matrix = new Matrix();
+                matrix.postRotate(mYunOrientation);
+                //matrix.postScale(mSurfaceView.getHeight() * 1.0f/ width  , mSurfaceView.getWidth() * 1.0f / height);
+                matrix.postScale((cameraId == 1) ? -1 : 1, 1);
+                bitmap = Bitmap.createBitmap(originalBitmap, 0, 0, width, height, matrix, true);
+                originalBitmap.recycle();
+            } catch (Exception e) {
+                Log.i(TAG, "catch exception " + e.getMessage());
+            }
+        }*/
+       /* if (mCameraActivity.getCurrentCameraId() == Camera.CameraInfo.CAMERA_FACING_BACK) {
+            mYUVBuffer = rotateYUVDegree90(mYUVBuffer, width, height);
+        } else {
+            mYUVBuffer = rotateYUVDegree270AndMirror(mYUVBuffer, width, height);
+        }
+*/
+        if (mYUVBuffer == null || mYUVBuffer.length == 0) {
+            return null;
         }
 
-    };
+        Size previewSize = mCurCameraDevice.getPreviewSize();
+        int width = previewSize.width;
+        int height = previewSize.height;
+
+        if (mYUVType == null) {
+            mYUVType = new Type.Builder(mRenderScript, Element.U8(mRenderScript)).setX(mYUVBuffer.length);
+            mInputAllocation = Allocation.createTyped(mRenderScript, mYUVType.create(), Allocation.USAGE_SCRIPT);
+
+            mRGBAType = new Type.Builder(mRenderScript, Element.RGBA_8888(mRenderScript)).setX(width).setY(height);
+            mOutputAllocation = Allocation.createTyped(mRenderScript, mRGBAType.create(), Allocation.USAGE_SCRIPT);
+        }
+
+        mInputAllocation.copyFrom(mYUVBuffer);
+        mScriptIntrinsicYuvToRGB.setInput(mInputAllocation);
+        mScriptIntrinsicYuvToRGB.forEach(mOutputAllocation);
+        Bitmap bmpout = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        mOutputAllocation.copyTo(bmpout);
+        Matrix matrix = new Matrix();
+        matrix.postRotate(mYunOrientation);
+        //matrix.postScale(mSurfaceView.getHeight() * 1.0f/ width  , mSurfaceView.getWidth() * 1.0f / height);
+        matrix.postScale((mCameraActivity.getCurrentCameraId() == 1) ? -1 : 1, 1);
+        bmpout = Bitmap.createBitmap(bmpout, 0, 0, width, height, matrix, false);
+        return bmpout;
+    }
+
+    public static byte[] rotateYUVDegree90(byte[] data, int imageWidth, int imageHeight) {
+        byte[] yuv = new byte[imageWidth * imageHeight * 3 / 2];
+        // Rotate the Y luma
+        int i = 0;
+        for (int x = 0; x < imageWidth; x++) {
+            for (int y = imageHeight - 1; y >= 0; y--) {
+                yuv[i] = data[y * imageWidth + x];
+                i++;
+            }
+        }
+        // Rotate the U and V color components
+        i = imageWidth * imageHeight * 3 / 2 - 1;
+        for (int x = imageWidth - 1; x > 0; x = x - 2) {
+            for (int y = 0; y < imageHeight / 2; y++) {
+                yuv[i] = data[(imageWidth * imageHeight) + (y * imageWidth) + x];
+                i--;
+                yuv[i] = data[(imageWidth * imageHeight) + (y * imageWidth) + (x - 1)];
+                i--;
+            }
+        }
+        return yuv;
+    }
+
+    public static byte[] rotateYUVDegree270AndMirror(byte[] data, int imageWidth, int imageHeight) {
+        byte[] yuv = new byte[imageWidth * imageHeight * 3 / 2];
+        // Rotate and mirror the Y luma
+        int i = 0;
+        int maxY = 0;
+        for (int x = imageWidth - 1; x >= 0; x--) {
+            maxY = imageWidth * (imageHeight - 1) + x * 2;
+            for (int y = 0; y < imageHeight; y++) {
+                yuv[i] = data[maxY - (y * imageWidth + x)];
+                i++;
+            }
+        }
+        // Rotate and mirror the U and V color components
+        int uvSize = imageWidth * imageHeight;
+        i = uvSize;
+        int maxUV = 0;
+        for (int x = imageWidth - 1; x > 0; x = x - 2) {
+            maxUV = imageWidth * (imageHeight / 2 - 1) + x * 2 + uvSize;
+            for (int y = 0; y < imageHeight / 2; y++) {
+                yuv[i] = data[maxUV - 2 - (y * imageWidth + x - 1)];
+                i++;
+                yuv[i] = data[maxUV - (y * imageWidth + x)];
+                i++;
+            }
+        }
+        return yuv;
+    }
 }

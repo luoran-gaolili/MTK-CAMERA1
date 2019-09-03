@@ -234,4 +234,9 @@ public class DummyCameraDevice implements ICameraDeviceExt {
     public void setPhotoModeBasicParameters() {
 
     }
+
+    @Override
+    public void setPreviewCallback(PreviewCallback cb) {
+
+    }
 }

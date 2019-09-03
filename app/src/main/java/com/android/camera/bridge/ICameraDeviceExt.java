@@ -115,4 +115,6 @@ public interface ICameraDeviceExt {
      * Set photo mode basic parameters such as mtk-cam-mode.
      */
     public void setPhotoModeBasicParameters();
+
+    public void setPreviewCallback(PreviewCallback cb);
 }
